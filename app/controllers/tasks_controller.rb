@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :set_params, only: [:edit, :update, :destroy]
+  before_action :set_params, only: [:show,:edit, :update, :destroy]
 
   def index
     @tasks = Task.all
@@ -16,6 +16,9 @@ class TasksController < ApplicationController
     else
       render "new"
     end
+  end
+
+  def show
   end
 
   def edit
