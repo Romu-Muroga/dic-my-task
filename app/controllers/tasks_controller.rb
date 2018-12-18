@@ -14,7 +14,6 @@ class TasksController < ApplicationController
     if @task.save
       redirect_to tasks_path, notice: "登録しました。"
     else
-
       render "new"
     end
   end
