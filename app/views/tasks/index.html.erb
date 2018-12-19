@@ -1,10 +1,12 @@
-<h3>一覧画面</h3>
-<% @tasks.each do |task| %>
-  <div class="task_box">
-    <p><%= task.title %></p>
-    <p><%= task.content %></p>
-    <%= link_to "詳細", task_path(task.id) %> |
-    <%= link_to "編集", edit_task_path(task.id) %> |
-    <%= link_to "削除", task_path(task.id), method: :delete %>
-  </div>
-<% end %>
+<h3><%= t("views.index.title") %></h3>
+<div class="index-box">
+  <% @tasks.each do |task| %>
+    <div class="task_box">
+      <p><%= task.title %></p>
+      <p><%= task.content %></p>
+      <%= link_to t("views.index.show"), task_path(task.id) %> |
+      <%= link_to t("views.index.edit"), edit_task_path(task.id) %> |
+      <%= link_to t("views.index.destroy"), task_path(task.id), method: :delete %>
+    </div>
+  <% end %>
+</div>

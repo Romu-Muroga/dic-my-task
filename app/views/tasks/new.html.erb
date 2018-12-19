@@ -1,9 +1,9 @@
-<h3>作成画面</h3>
+<h3><%= t("views.new.title") %></h3>
 <%= form_with(model: @task, local: true) do |f| %>
   <p><%= f.label :title %></p>
   <p><%= f.text_field :title %></p>
   <p><%= f.label :content %></p>
   <p><%= f.text_area :content %></p>
-  <%= f.submit "登録" %>
-  <p><%= link_to "戻る", tasks_path %></p>
+  <%= f.submit %>
+  <p><%= link_to t("views.new.back"), tasks_path %></p>
 <% end %>

@@ -1,0 +1,21 @@
+# ビューはビューを格納しているフォルダ名を起点にし、ビュー名毎に記述する。
+# インデント(2space)でpathを制御している
+
+ja:
+  views:
+    index:
+      title: "一覧画面"
+      show: "詳細"
+      edit: "編集"
+      destroy: "削除"
+    new:
+      title: "作成画面"
+      back: "戻る"
+    show:
+      title: "詳細画面"
+      edit: "編集"
+      destroy: "削除"
+      back: "戻る"
+    edit:
+      title: "編集画面"
+      back: "戻る"
