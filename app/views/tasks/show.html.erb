@@ -1,8 +1,8 @@
-<h3>詳細画面</h3>
+<h3><%= t("views.show.title") %></h3>
 <div class="task_box">
   <p><%= @task.title %></p>
   <p><%= @task.content %></p>
-  <%= link_to "編集", edit_task_path(@task.id) %> |
-  <%= link_to "削除", task_path(@task.id), method: :delete %>
-  <p><%= link_to "戻る", tasks_path %></p>
+  <%= link_to t("views.show.edit"), edit_task_path(@task.id) %> |
+  <%= link_to t("views.show.destroy"), task_path(@task.id), method: :delete %>
+  <p><%= link_to t("views.show.back"), tasks_path %></p>
 </div>
