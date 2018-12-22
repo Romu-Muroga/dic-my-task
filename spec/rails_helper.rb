@@ -64,7 +64,7 @@ RSpec.configure do |config|
   # テスト用のデータを作成できないというエラーに直面することがある。
   # 'database_cleaner'というgemとセットで必要。
   config.before(:suite) do
-  DatabaseCleaner.strategy = :truncation
+    DatabaseCleaner.strategy = :truncation
   end
 
   config.before(:all) do
