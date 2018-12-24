@@ -51,6 +51,8 @@ group :development, :test do
   gem 'spring-commands-rspec'
   # FeatureSpecのテスト内部で起こっている状態が可視化されるsave_and_open_pageメソッドを使うためのgem
   gem 'launchy'
+  # ENVでセキュリティ対策するために必要なgem
+  gem 'dotenv-rails'
 end
 
 group :development do
