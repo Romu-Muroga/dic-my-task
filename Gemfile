@@ -43,6 +43,16 @@ group :development, :test do
   gem 'pry-rails'
   gem 'better_errors'
   gem 'binding_of_caller'
+  # RSpecに必要なgem(以下５つ)
+  gem 'capybara'
+  gem 'database_cleaner'
+  gem 'factory_bot_rails'
+  gem 'rspec-rails'
+  gem 'spring-commands-rspec'
+  # FeatureSpecのテスト内部で起こっている状態が可視化されるsave_and_open_pageメソッドを使うためのgem
+  gem 'launchy'
+  # ENVでセキュリティ対策するために必要なgem
+  gem 'dotenv-rails'
 end
 
 group :development do
@@ -56,7 +66,6 @@ end
 
 group :test do
   # Adds support for Capybara system testing and selenium driver
-  gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'
   # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'chromedriver-helper'
