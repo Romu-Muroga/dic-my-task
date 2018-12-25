@@ -1,9 +1,11 @@
 <h3><%= t("views.index.title") %></h3>
+<p><%= link_to t("views.index.end_time_limit_sort"), tasks_path(sort_expired: "true") %></p>
 <div class="index-box">
   <% @tasks.each do |task| %>
     <div class="task_box">
       <p><%= task.title %></p>
       <p><%= task.content %></p>
+      <p><%= l(task.end_time_limit, format: :long) %></p>
       <%= link_to t("views.index.show"), task_path(task.id) %> |
       <%= link_to t("views.index.edit"), edit_task_path(task.id) %> |
       <%= link_to t("views.index.destroy"), task_path(task.id), method: :delete %>

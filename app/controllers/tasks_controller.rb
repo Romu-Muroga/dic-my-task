@@ -1,8 +1,12 @@
 class TasksController < ApplicationController
-  before_action :set_params, only: [:show,:edit, :update, :destroy]
+  before_action :set_params, only: [:show, :edit, :update, :destroy]
 
   def index
-    @tasks = Task.all.sorted
+    if params[:sort_expired]
+      @tasks = Task.all.end_time_limit_sorted
+    else
+      @tasks = Task.all.created_at_sorted
+    end
   end
 
   def new
@@ -12,7 +16,7 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     if @task.save
-      redirect_to tasks_path, notice: "登録しました。"
+      redirect_to task_path(@task.id), notice: "登録しました。"
     else
       render "new"
     end
@@ -44,6 +48,6 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:title, :content)
+    params.require(:task).permit(:title, :content, :end_time_limit)
   end
 end
