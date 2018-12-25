@@ -2,7 +2,7 @@
 require "rails_helper"
 
 # RSpec.featureの右側に、「タスク管理機能」のように、テスト項目の名称を書きます（do ~ endでグループ化されています）
-RSpec.feature "タスク管理機能（一覧・作成日時の降順・詳細）", type: :feature do
+RSpec.feature "タスク管理機能（一覧・作成日時の降順・詳細・終了期限のソート）", type: :feature do
   # background（Rspec -> before）を使って、「タスク管理機能（一覧と作成日時の降順）」というカテゴリの中で使われるデータを共通化
   background do
     @task1 = FactoryBot.create(:task)
@@ -40,6 +40,16 @@ RSpec.feature "タスク管理機能（一覧・作成日時の降順・詳細�
     visit task_path(@task1.id)
     expect(page).to have_content "test_task_01", "testtesttest"
   end
+
+  scenario "タスクが終了期限で降順に並んでいるかのテスト" do
+    visit tasks_path
+
+    click_on "終了期限でソートする"
+
+    all("div div")[0].click_link "詳細"
+    expect(page).to have_content "test_task_02"
+  end
+
 end
 
 RSpec.feature "タスク管理機能（作成）", type: :feature do
@@ -52,6 +62,12 @@ RSpec.feature "タスク管理機能（作成）", type: :feature do
     fill_in "タスク名", with: "タスク名test"
     #「タスク詳細」というラベル名の入力欄に内容をfill_in（入力）する処理
     fill_in "タスク詳細", with: "タスク詳細test"
+    # 「終了期限」というラベル名のセレクトボックスを選択する処理
+    select "2018", from: "task[end_time_limit(1i)]"
+    select "12月", from: "task[end_time_limit(2i)]"
+    select "25", from: "task[end_time_limit(3i)]"
+    select "15", from: "task[end_time_limit(4i)]"
+    select "28", from: "task[end_time_limit(5i)]"
 
     #「登録する」というvalue（表記文字）のあるボタンをclick_onする（クリックする）する処理
     click_on "登録する"
@@ -66,5 +82,6 @@ RSpec.feature "タスク管理機能（作成）", type: :feature do
     # タスク詳細ページに、テストコードで作成したはずのデータ（記述）がhave_contentされているか（含まれているか）を確認（期待）するコード
     expect(page).to have_content "タスク名test"
     expect(page).to have_content "タスク詳細test"
+    expect(page).to have_content "2018/12/25 15:28"
   end
 end

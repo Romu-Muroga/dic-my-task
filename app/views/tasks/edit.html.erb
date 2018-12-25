@@ -14,6 +14,8 @@
   <p><%= f.text_field :title %></p>
   <p><%= f.label :content %></p>
   <p><%= f.text_area :content %></p>
+  <p><%= f.label :end_time_limit %></p>
+  <p><%= f.datetime_select :end_time_limit %></p>
   <%= f.submit %>
   <p><%= link_to t("views.edit.back"), tasks_path %></p>
 <% end %>

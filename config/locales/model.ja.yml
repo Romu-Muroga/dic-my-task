@@ -6,3 +6,4 @@ ja:
       task:
         title: "タスク名"
         content: "タスク詳細"
+        end_time_limit: "終了期限"
