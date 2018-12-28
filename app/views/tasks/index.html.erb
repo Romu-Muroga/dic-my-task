@@ -1,8 +1,21 @@
 <h3><%= t("views.index.title") %></h3>
+<!--ここでは、form_withの引数にある「model: Task.new」で空の引き出しを作り、その中に検索したいタイトル名や
+ステータス名を収納しコントローラに渡すことをしている。コントローラでは渡された情報を元にDBからwhere文などで
+一致したデータを引っ張り出してindex.html.erb内で表示する流れになっている。-->
+<%= form_with(model: Task.new, url: tasks_path, method: :get, local: true) do |f| %>
+  <%= f.label :title_search %>
+  <%= f.text_field :title %>
+  <%= f.label :status_search %>
+  <%= f.select :status, Task.statuses_i18n.invert, include_blank: true, selected: "" %>
+  <%= f.hidden_field :search, value: "true" %>
+  <%= f.submit t("views.index.search") %>
+<% end %>
+
 <p><%= link_to t("views.index.end_time_limit_sort"), tasks_path(sort_expired: "true") %></p>
 <div class="index-box">
   <% @tasks.each do |task| %>
     <div class="task_box">
+      <p><%= task.status_i18n %></p>
       <p><%= task.title %></p>
       <p><%= task.content %></p>
       <p><%= l(task.end_time_limit, format: :long) %></p>

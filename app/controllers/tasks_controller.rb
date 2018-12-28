@@ -14,8 +14,11 @@ class TasksController < ApplicationController
   end
 
   def create
+    binding.pry
     @task = Task.new(task_params)
+    binding.pry
     if @task.save
+      binding.pry
       redirect_to task_path(@task.id), notice: "登録しました。"
     else
       render "new"
@@ -48,6 +51,6 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:title, :content, "end_time_limit(1i)", "end_time_limit(2i)", "end_time_limit(3i)", "end_time_limit(4i)", "end_time_limit(5i)")
+    params.require(:task).permit(:title, :content, :status, "end_time_limit(1i)", "end_time_limit(2i)", "end_time_limit(3i)", "end_time_limit(4i)", "end_time_limit(5i)")
   end
 end

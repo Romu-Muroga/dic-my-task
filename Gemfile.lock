@@ -88,6 +88,8 @@ GEM
     dotenv-rails (2.5.0)
       dotenv (= 2.5.0)
       railties (>= 3.2, < 6.0)
+    enum_help (0.0.17)
+      activesupport (>= 3.0.0)
     erubi (1.7.1)
     execjs (2.7.0)
     factory_bot (4.11.1)
@@ -244,6 +246,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   database_cleaner
   dotenv-rails
+  enum_help
   factory_bot_rails
   launchy
   listen (>= 3.0.5, < 3.2)

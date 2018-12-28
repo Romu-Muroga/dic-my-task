@@ -1,5 +1,6 @@
 <h3><%= t("views.show.title") %></h3>
 <div class="task_box">
+  <p><%= @task.status_i18n %></p>
   <p><%= @task.title %></p>
   <p><%= @task.content %></p>
   <p><%= l(@task.end_time_limit, format: :long) %></p>
