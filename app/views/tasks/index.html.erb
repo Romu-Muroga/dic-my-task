@@ -2,12 +2,17 @@
 <!--ここでは、form_withの引数にある「model: Task.new」で空の引き出しを作り、その中に検索したいタイトル名や
 ステータス名を収納しコントローラに渡すことをしている。コントローラでは渡された情報を元にDBからwhere文などで
 一致したデータを引っ張り出してindex.html.erb内で表示する流れになっている。-->
-<%= form_with(model: Task.new, url: tasks_path, method: :get, local: true) do |f| %>
+<%= form_with(model: Task.new, url: search_tasks_path, method: :get, local: true) do |f| %>
   <%= f.label :title_search %>
   <%= f.text_field :title %>
   <%= f.label :status_search %>
   <%= f.select :status, Task.statuses_i18n.invert, include_blank: true, selected: "" %>
-  <%= f.hidden_field :search, value: "true" %>
+  <!-- f.select :status, Task.statuses.map{ |k, v|[t("enums.task.status.#{k}"), v] }だと「'0' is not valid status」のerrorが起こる。
+  これは、taskインスタンスのstatusフィールドに整数の0ではなく、文字列の”0”を渡そうとしているからである。formはデフォルトで ""がついてしまっている。-->
+  <%#= f.hidden_field :search, value: "true" %>
+  <!-- controllerのindexアクション内で送られてきたparametersをif params[:task][:search]で拾おうとすると
+  「NoMethodError: undefined method `[]' for nil:NilClass」エラーが起こる。params[:search]とすると
+  エラーは起こらないが今度は検索ができなくなる。-->
   <%= f.submit t("views.index.search") %>
 <% end %>
 

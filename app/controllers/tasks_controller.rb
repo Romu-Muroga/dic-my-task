@@ -9,16 +9,27 @@ class TasksController < ApplicationController
     end
   end
 
+  def search
+    # present?を書かないとフィールドが空欄（""）でも検索しにいってしまいエラーが起こる？
+    if params[:task][:title].present? && params[:task][:status].present?
+      @tasks = Task.title_status_search(params[:task][:title], params[:task][:status])
+      render "index"
+    elsif params[:task][:title].present?
+      @tasks = Task.title_search(params[:task][:title])
+      render "index"
+    elsif params[:task][:status].present?
+      @tasks = Task.status_search(params[:task][:status])
+      render "index"
+    end
+  end
+
   def new
     @task = Task.new
   end
 
   def create
-    binding.pry
     @task = Task.new(task_params)
-    binding.pry
     if @task.save
-      binding.pry
       redirect_to task_path(@task.id), notice: "登録しました。"
     else
       render "new"
