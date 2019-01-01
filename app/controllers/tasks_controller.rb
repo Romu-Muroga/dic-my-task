@@ -3,9 +3,9 @@ class TasksController < ApplicationController
 
   def index
     if params[:sort_expired]
-      @tasks = Task.all.end_time_limit_sorted
+      @tasks = Task.all.end_time_limit_sorted.limit(30)
     else
-      @tasks = Task.all.created_at_sorted
+      @tasks = Task.all.created_at_sorted.limit(30)
     end
   end
 
@@ -20,6 +20,8 @@ class TasksController < ApplicationController
     elsif params[:task][:status].present?
       @tasks = Task.status_search(params[:task][:status])
       render "index"
+    elsif params[:task][:title].blank? && params[:task][:status].blank?
+      redirect_to tasks_path, notice: t("flash.blank")
     end
   end
 
@@ -30,7 +32,7 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     if @task.save
-      redirect_to task_path(@task.id), notice: "登録しました。"
+      redirect_to task_path(@task.id), notice: t("flash.create")
     else
       render "new"
     end
@@ -44,7 +46,7 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      redirect_to tasks_path, notice: "編集しました。"
+      redirect_to tasks_path, notice: t("flash.update")
     else
       render "edit"
     end
@@ -52,7 +54,7 @@ class TasksController < ApplicationController
 
   def destroy
     @task.destroy
-    redirect_to tasks_path, notice: "削除しました。"
+    redirect_to tasks_path, notice: t("flash.destroy")
   end
 
   private

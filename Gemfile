@@ -47,6 +47,8 @@ group :development, :test do
   gem 'launchy'
   # ENVでセキュリティ対策するために必要なgem
   gem 'dotenv-rails'
+  # テストデータを生成するときに使うgem
+  gem 'faker'
 end
 
 group :development do
