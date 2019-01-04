@@ -29,9 +29,10 @@
  - contentカラム => string型（５００文字以下）
  - end_time_limitカラム => datetime型
  - priorityカラム => integer型
- - statusカラム => string型（１０文字以下）
+ - statusカラム => integer型
  - user_idカラム => references
  - index => titleカラム
+ - index => statusカラム
 
 ###### labelsテーブル
 - モデル名：Labelモデル
