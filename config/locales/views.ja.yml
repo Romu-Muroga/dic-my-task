@@ -1,4 +1,15 @@
 ja:
+  flash:
+    create: "登録しました。"
+    update: "編集しました。"
+    destroy: "削除しました。"
+    blank: "検索欄が空白です。何か入力してください。"
+  enums:
+    task:
+      status:
+        waiting: "未着手"
+        working: "着手中"
+        completed: "完了"
   views:
     index:
       title: "一覧画面"
@@ -6,6 +17,9 @@ ja:
       edit: "編集"
       destroy: "削除"
       end_time_limit_sort: "終了期限でソートする"
+      search: "検索"
+      title_search: "タスク名で絞り込む"
+      status_search: "ステータスで絞り込む"
     new:
       title: "作成画面"
       back: "戻る"
