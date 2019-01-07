@@ -27,9 +27,9 @@
 - モデル名：Taskモデル
  - titleカラム => string型（１００文字以下）
  - contentカラム => string型（５００文字以下）
- - end_time_limitカラム => datetime型
- - priorityカラム => integer型
- - statusカラム => integer型
+ - end_time_limitカラム => datetime型、defalt: 現在時刻
+ - priorityカラム => integer型、defalt: 中
+ - statusカラム => integer型、defalt: 未着手
  - user_idカラム => references
  - index => titleカラム
  - index => statusカラム
