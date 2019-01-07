@@ -2,10 +2,12 @@ class TasksController < ApplicationController
   before_action :set_params, only: [:show, :edit, :update, :destroy]
 
   def index
-    if params[:sort_expired]
-      @tasks = Task.all.end_time_limit_sorted.limit(30)
+    if params[:etl_sort]
+      @tasks = Task.end_time_limit_sorted.limit(30)#all省略
+    elsif params[:pri_sort]
+      @tasks = Task.priority_sorted.limit(30)#all省略
     else
-      @tasks = Task.all.created_at_sorted.limit(30)
+      @tasks = Task.created_at_sorted.limit(30)#all省略
     end
   end
 
@@ -64,6 +66,7 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:title, :content, :status, "end_time_limit(1i)", "end_time_limit(2i)", "end_time_limit(3i)", "end_time_limit(4i)", "end_time_limit(5i)")
+    params.require(:task).permit(:title, :content, :status, :priority,
+                                 "end_time_limit(1i)", "end_time_limit(2i)", "end_time_limit(3i)", "end_time_limit(4i)", "end_time_limit(5i)")
   end
 end
