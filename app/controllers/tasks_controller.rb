@@ -11,6 +11,31 @@ class TasksController < ApplicationController
     end
   end
 
+  # # indexアクション内で検索するとき
+  # def index
+  #   # 「if文中のnilはfalseとして扱われる」if文中で、falseと同等の値として扱われるのはnilだけ。
+  #   # falseとnil以外の値、たとえば、0、[],””などはtrueとして扱われる。
+  #   if params[:etl_sort]#返り値がnil
+  #     @tasks = Task.end_time_limit_sorted.limit(30)#all省略
+  #   elsif params[:pri_sort]#返り値がnil
+  #     @tasks = Task.priority_sorted.limit(30)#all省略
+  #   # elsif params[:task][:search]#undefined method `[]' for nil:NilClassとなる([]を呼び出そうとしているが、その元のオブジェクトがnilであると言っている。)
+  #   elsif params[:task] && params[:task][:search]#params[:task]の返り値がnil
+  #     # present?を書かないとフィールドが空欄（""）でも検索しにいってしまいエラーが起こる？
+  #     if params[:task][:title].present? && params[:task][:status].present?
+  #       @tasks = Task.title_status_search(params[:task][:title], params[:task][:status])
+  #     elsif params[:task][:title].present?
+  #       @tasks = Task.title_search(params[:task][:title])
+  #     elsif params[:task][:status].present?
+  #       @tasks = Task.status_search(params[:task][:status])
+  #     elsif params[:task][:title].blank? && params[:task][:status].blank?
+  #       redirect_to tasks_path, notice: t("flash.blank")
+  #     end
+  #   else
+  #     @tasks = Task.created_at_sorted.limit(30)#all省略
+  #   end
+  # end
+
   def search
     # present?を書かないとフィールドが空欄（""）でも検索しにいってしまいエラーが起こる？
     if params[:task][:title].present? && params[:task][:status].present?
