@@ -6,6 +6,10 @@ ja:
     blank: "検索欄が空白です。何か入力してください。"
   enums:
     task:
+      priority:
+        row: "低"
+        medium: "中"
+        high: "高"
       status:
         waiting: "未着手"
         working: "着手中"
@@ -17,6 +21,7 @@ ja:
       edit: "編集"
       destroy: "削除"
       end_time_limit_sort: "終了期限でソートする"
+      priority_sort: "優先順位でソートする"
       search: "検索"
       title_search: "タスク名で絞り込む"
       status_search: "ステータスで絞り込む"

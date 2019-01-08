@@ -2,11 +2,12 @@
 require "rails_helper"
 
 # RSpec.featureの右側に、「タスク管理機能」のように、テスト項目の名称を書きます（do ~ endでグループ化されています）
-RSpec.feature "タスク管理機能（一覧・作成日時の降順・詳細・終了期限のソート）", type: :feature do
+RSpec.feature "タスク管理機能（一覧・作成日時の降順・詳細・終了期限のソート・優先順位でソート）", type: :feature do
   # background（Rspec -> before）を使って、「タスク管理機能（一覧と作成日時の降順）」というカテゴリの中で使われるデータを共通化
   background do
     @task1 = FactoryBot.create(:task)
     @task2 = FactoryBot.create(:second_task)
+    @task3 = FactoryBot.create(:third_task)
   end
   # scenario（itのalias）の中に、確認したい各項目のテストの処理を書きます。
   scenario "タスク一覧のテスト" do
@@ -28,12 +29,12 @@ RSpec.feature "タスク管理機能（一覧・作成日時の降順・詳細�
     visit tasks_path
     # all メソッドでは条件に合致した要素の配列が返ってくる
     all("div div")[0].click_link "詳細"
-    expect(page).to have_content "test_task_02"
+    expect(page).to have_content "test_task_03"
 
     visit tasks_path
 
     all("div div")[1].click_link "詳細"
-    expect(page).to have_content "test_task_01"
+    expect(page).to have_content "test_task_02"
   end
 
   scenario "タスク詳細のテスト" do
@@ -47,7 +48,27 @@ RSpec.feature "タスク管理機能（一覧・作成日時の降順・詳細�
     click_on "終了期限でソートする"
 
     all("div div")[0].click_link "詳細"
-    expect(page).to have_content "test_task_02"
+    expect(page).to have_content "test_task_03"
+  end
+
+  scenario "タスクが優先順位で降順に並んでいるかのテスト" do
+    visit tasks_path
+    click_on "優先順位でソートする"
+
+    all("div div")[0].click_link "詳細"
+    expect(page).to have_content "高"
+
+    visit tasks_path
+    click_on "優先順位でソートする"
+
+    all("div div")[1].click_link "詳細"
+    expect(page).to have_content "中"
+
+    visit tasks_path
+    click_on "優先順位でソートする"
+
+    all("div div")[2].click_link "詳細"
+    expect(page).to have_content "低"
   end
 
 end
