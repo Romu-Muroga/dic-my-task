@@ -16,6 +16,7 @@
   <p><%= f.text_area :content %></p>
   <p><%= f.label :end_time_limit %></p>
   <p><%= f.datetime_select :end_time_limit %></p>
+  <p><%#= f.datetime_field("end_time_limit") %></p>
   <p><%= f.label :status %></p>
   <p><%= f.select :status, Task.statuses_i18n.invert %></p>
   <p><%= f.label :priority %></p>
