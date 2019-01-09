@@ -92,6 +92,7 @@ class TasksController < ApplicationController
   end
 
   def task_params
+    # f.datetime_field("end_time_limit")を使ったときは、permitを:end_time_limitに変更
     params.require(:task).permit(:title, :content, :status, :priority,
                                  "end_time_limit(1i)", "end_time_limit(2i)", "end_time_limit(3i)", "end_time_limit(4i)", "end_time_limit(5i)")
   end

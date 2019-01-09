@@ -89,6 +89,9 @@ RSpec.feature "タスク管理機能（作成）", type: :feature do
     select "25", from: "task[end_time_limit(3i)]"
     select "15", from: "task[end_time_limit(4i)]"
     select "28", from: "task[end_time_limit(5i)]"
+    # fill_in "終了期限", with: DateTime.new(2019,1,1,00,00,00)#タイムゾーンがUTC
+    # fill_in "終了期限", with: DateTime.new(2019,1,1,00,00,00,"+09:00")
+    # fill_in "終了期限", with: Time.zone.local(2019,1,1,00,00,00)#application.rbのタイムゾーンを使用
 
     #「登録する」というvalue（表記文字）のあるボタンをclick_onする（クリックする）する処理
     click_on "登録する"
@@ -104,5 +107,6 @@ RSpec.feature "タスク管理機能（作成）", type: :feature do
     expect(page).to have_content "タスク名test"
     expect(page).to have_content "タスク詳細test"
     expect(page).to have_content "2018/12/25 15:28"
+    # expect(page).to have_content "2019/01/01 00:00"
   end
 end
