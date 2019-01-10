@@ -1,6 +1,4 @@
-.task_box{
-  background-color: #dcdcdc;
-  width: 300px;
-  height: 300px;
-  margin: 0 0 10px 10px;
+.border {
+  border-bottom: 1px solid #dcdcdc;
+  padding: 4px 0 4px 0; /* 内容と線との間隔量 */
 }

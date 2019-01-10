@@ -108,6 +108,9 @@ GEM
     kaminari (0.17.0)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
+    kaminari-bootstrap (3.0.1)
+      kaminari (>= 0.13.0)
+      rails
     launchy (2.4.3)
       addressable (~> 2.3)
     listen (3.1.5)
@@ -255,6 +258,7 @@ DEPENDENCIES
   factory_bot_rails
   faker
   kaminari (~> 0.17.0)
+  kaminari-bootstrap (~> 3.0.1)
   launchy
   listen (>= 3.0.5, < 3.2)
   pg (>= 0.18, < 2.0)

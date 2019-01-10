@@ -1,0 +1,54 @@
+html {
+  width: 100%;
+}
+body {
+  width: 100%;
+  background-color: #2779BE;
+}
+
+header {
+  width: 100%;
+  height: 60px;
+  background-color: white;
+  position: fixed;
+  top: 0;
+  z-index: 100;
+}
+
+header a {
+  color: black;
+}
+
+.navbar-left {
+  margin: 11px;
+}
+
+.navbar-form .form-control {
+  width: 366px;
+}
+
+.cp_btn {
+	width: 160px;
+	padding: 1px;
+	text-align: center;
+	font-weight: bold;
+	text-decoration: none;
+	color: #FFF;
+	text-shadow: 0 0 5px rgba(255, 255, 255, 0.0);
+	background: #1A237E;
+	transition: .4s;
+	border-radius: 4px;
+}
+
+.cp_btn:hover {
+	text-shadow: -6px 0px 15px rgba(255, 255, 240, 0.83), 6px 0px 15px rgba(255, 255, 240, 0.83);
+	transition: .4s;
+}
+
+.navbar-right {
+  margin: 11px;
+}
+
+.wrapper {
+  margin-top: 80px;
+}

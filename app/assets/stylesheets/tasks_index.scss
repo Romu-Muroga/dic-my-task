@@ -1,11 +1,45 @@
-.index-box{
+.pagination {
+  margin: 9px 0;
+}
+
+.pagination .active a {
+  background-color: yellowgreen;
+  color: black;
+  border-color: white;
+ }
+
+.pagination .active a:hover {
+  background-color: white;
+  color: black;
+}
+
+.pagination li a {
+  color: black;
+}
+
+.pagination a {
+  color: black;
+}
+
+.row-eq-height {
   display: flex;
   flex-wrap: wrap;
 }
 
-.task_box{
-  background-color: #dcdcdc;
-  width: 300px;
-  height: 300px;
-  margin: 0 0 10px 10px;
+.panel-title {
+  word-wrap: break-word;
+}
+
+.panel-body {
+  word-wrap: break-word;
+}
+
+.panel-body a {
+  color: black;
+  font-weight: bold;
+}
+
+.border {
+  border-bottom: 1px solid #dcdcdc;
+  padding: 4px 0 4px 0; /* 内容と線との間隔量 */
 }

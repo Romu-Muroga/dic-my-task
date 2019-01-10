@@ -26,6 +26,7 @@ ja:
       show: "詳細"
       edit: "編集"
       destroy: "削除"
+      sort: "並び替え"
       end_time_limit_sort: "終了期限でソートする"
       priority_sort: "優先順位でソートする"
       search: "検索"
