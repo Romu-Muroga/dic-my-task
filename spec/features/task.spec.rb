@@ -28,12 +28,12 @@ RSpec.feature "タスク管理機能（一覧・作成日時の降順・詳細�
   scenario "タスクが作成日時の降順に並んでいるかのテスト" do
     visit tasks_path
     # all メソッドでは条件に合致した要素の配列が返ってくる
-    all("div div")[0].click_link "詳細"
+    all(".panel")[0].click_link "詳細"
     expect(page).to have_content "test_task_03"
 
     visit tasks_path
 
-    all("div div")[1].click_link "詳細"
+    all(".panel")[1].click_link "詳細"
     expect(page).to have_content "test_task_02"
   end
 
@@ -44,30 +44,41 @@ RSpec.feature "タスク管理機能（一覧・作成日時の降順・詳細�
 
   scenario "タスクが終了期限で降順に並んでいるかのテスト" do
     visit tasks_path
-
     click_on "終了期限でソートする"
 
-    all("div div")[0].click_link "詳細"
+    all(".panel")[0].click_link "詳細"
     expect(page).to have_content "test_task_03"
+
+    visit tasks_path
+    click_on "終了期限でソートする"
+
+    all(".panel")[1].click_link "詳細"
+    expect(page).to have_content "test_task_02"
+
+    visit tasks_path
+    click_on "終了期限でソートする"
+
+    all(".panel")[2].click_link "詳細"
+    expect(page).to have_content "test_task_01"
   end
 
   scenario "タスクが優先順位で降順に並んでいるかのテスト" do
     visit tasks_path
     click_on "優先順位でソートする"
 
-    all("div div")[0].click_link "詳細"
+    all(".panel")[0].click_link "詳細"
     expect(page).to have_content "高"
 
     visit tasks_path
     click_on "優先順位でソートする"
 
-    all("div div")[1].click_link "詳細"
+    all(".panel")[1].click_link "詳細"
     expect(page).to have_content "中"
 
     visit tasks_path
     click_on "優先順位でソートする"
 
-    all("div div")[2].click_link "詳細"
+    all(".panel")[2].click_link "詳細"
     expect(page).to have_content "低"
   end
 
@@ -80,9 +91,14 @@ RSpec.feature "タスク管理機能（作成）", type: :feature do
     visit new_task_path
 
     #「タスク名」というラベル名の入力欄に内容をfill_in（入力）する処理
-    fill_in "タスク名", with: "タスク名test"
+    # withinで画面上に複数現れる要素を絞り込む
+    within ".form_inner" do
+      fill_in "タスク名", with: "タスク名test"
+    end
+
     #「タスク詳細」というラベル名の入力欄に内容をfill_in（入力）する処理
     fill_in "タスク詳細", with: "タスク詳細test"
+
     # 「終了期限」というラベル名のセレクトボックスを選択する処理
     select "2018", from: "task[end_time_limit(1i)]"
     select "12月", from: "task[end_time_limit(2i)]"
@@ -92,6 +108,14 @@ RSpec.feature "タスク管理機能（作成）", type: :feature do
     # fill_in "終了期限", with: DateTime.new(2019,1,1,00,00,00)#タイムゾーンがUTC
     # fill_in "終了期限", with: DateTime.new(2019,1,1,00,00,00,"+09:00")
     # fill_in "終了期限", with: Time.zone.local(2019,1,1,00,00,00)#application.rbのタイムゾーンを使用
+
+    # 「状態」というラベル名のセレクトボックスを選択す処理
+    within ".form_inner" do
+      select "未着手", from: "状態"
+    end
+
+    # 「優先順位」というラベル名のセレクトボックスを選択する処理
+    select "中", from: "優先順位"
 
     #「登録する」というvalue（表記文字）のあるボタンをclick_onする（クリックする）する処理
     click_on "登録する"
@@ -108,5 +132,7 @@ RSpec.feature "タスク管理機能（作成）", type: :feature do
     expect(page).to have_content "タスク詳細test"
     expect(page).to have_content "2018/12/25 15:28"
     # expect(page).to have_content "2019/01/01 00:00"
+    expect(page).to have_content "未着手"
+    expect(page).to have_content "中"
   end
 end
