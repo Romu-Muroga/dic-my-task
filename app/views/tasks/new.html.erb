@@ -1,26 +1,9 @@
-<h3><%= t("views.new.title") %></h3>
-<%= form_with(model: @task, local: true) do |f| %>
-  <% if @task.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= t("errors.template.header", model: @task.model_name.human, count: @task.errors.count) %></h2>
-      <ul>
-        <% @task.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-offset-3 col-md-6">
+      <h3><%= t("views.new.title") %></h3>
+      <%= render partial: "form", locals: { task: @task } %>
+      <%= link_to t("views.new.back"), tasks_path, class: "btn btn-default" %>
     </div>
-  <% end %>
-  <p><%= f.label :title %></p>
-  <p><%= f.text_field :title %></p>
-  <p><%= f.label :content %></p>
-  <p><%= f.text_area :content %></p>
-  <p><%= f.label :end_time_limit %></p>
-  <p><%= f.datetime_select :end_time_limit %></p>
-  <p><%#= f.datetime_field("end") %></p>
-  <p><%= f.label :status %></p>
-  <p><%= f.select :status, Task.statuses_i18n.invert %></p>
-  <p><%= f.label :priority %></p>
-  <p><%= f.select :priority, Task.priorities_i18n.invert %></p>
-  <%= f.submit %>
-  <p><%= link_to t("views.new.back"), tasks_path %></p>
-<% end %>
+  </div>
+</div>
