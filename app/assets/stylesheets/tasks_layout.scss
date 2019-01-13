@@ -1,6 +1,7 @@
 html {
   width: 100%;
 }
+
 body {
   width: 100%;
   background-color: #2779BE;
@@ -20,13 +21,14 @@ header a {
 }
 
 .navbar-left {
-  margin: 11px;
+  margin: 11px 0 11px 0;
 }
 
 .navbar-form .form-control {
-  width: 366px;
+  width: 300px;
 }
 
+// 検索ボタン
 .cp_btn {
 	width: 160px;
 	padding: 1px;
@@ -40,6 +42,7 @@ header a {
 	border-radius: 4px;
 }
 
+// 検索ボタン
 .cp_btn:hover {
 	text-shadow: -6px 0px 15px rgba(255, 255, 240, 0.83), 6px 0px 15px rgba(255, 255, 240, 0.83);
 	transition: .4s;
@@ -51,4 +54,11 @@ header a {
 
 .wrapper {
   margin-top: 80px;
+}
+
+// 通知文
+p.notice_info {
+  text-align: center;
+  color: white;
+  font-weight: bold;
 }

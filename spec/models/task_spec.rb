@@ -12,8 +12,8 @@ RSpec.describe Task, type: :model do
     expect(task).not_to be_valid
   end
 
-  it "titleとcontentに内容が記載されていればバリデーションが通る" do
-    task = Task.new(title: "成功テスト", content: "成功テスト", end_time_limit: DateTime.now, status: "waiting")
+  it "全ての内容が記載されていればバリデーションが通る" do
+    task = Task.new(title: "成功テスト", content: "成功テスト", end_time_limit: DateTime.now, status: "waiting", priority: "row")
     expect(task).to be_valid#be_validでvalid?メソッドを呼んで、それが返す値が（真 = true）である（to）ことを期待するテスト
   end
 

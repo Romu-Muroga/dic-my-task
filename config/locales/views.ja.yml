@@ -33,7 +33,7 @@ ja:
       title_search: "タスク名で絞り込む"
       status_search: "ステータスで絞り込む"
     new:
-      title: "作成画面"
+      title: "新規作成"
       back: "戻る"
     show:
       title: "詳細画面"

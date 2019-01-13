@@ -9,8 +9,15 @@
  }
 
 .pagination .active a:hover {
-  background-color: white;
+  background-color: yellowgreen;
   color: black;
+  border-color: white;
+}
+
+.pagination .active a:focus {
+  background-color: yellowgreen;
+  color: black;
+  border-color: white;
 }
 
 .pagination li a {
@@ -21,11 +28,13 @@
   color: black;
 }
 
+// 各パネルの位置を上端で揃える
 .row-eq-height {
   display: flex;
   flex-wrap: wrap;
 }
 
+// テキストを折り返してはみ出さないように改行
 .panel-title {
   word-wrap: break-word;
 }

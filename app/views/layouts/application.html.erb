@@ -11,55 +11,60 @@
 
   <body>
     <header>
-      <nav>
-        
-        <div class="btn-group navbar-left" role="group" aria-label="...">
-          <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> <%= link_to t("views.new.title"), new_task_path %></button>
-          <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> <%= link_to t("views.index.title"), tasks_path %></button>
-          <button type="button" class="btn btn-default">Right</button>
-        </div>
+      <nav class= "container-fluid">
+        <div class="row">
+          <!-- 新規作成画面と一覧画面メニュー -->
+          <div class="btn-group navbar-left col-xs-3 col-md-3" role="group" aria-label="...">
+            <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> <%= link_to t("views.new.title"), new_task_path %></button>
+            <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> <%= link_to t("views.index.title"), tasks_path %></button>
+            <!-- <button type="button" class="btn btn-default">Right</button> -->
+          </div>
 
-        <!--ここでは、form_withの引数にある「model: Task.new」で空の引き出しを作り、その中に検索したいタイトル名や
-        ステータス名を収納しコントローラに渡すことをしている。コントローラでは渡された情報を元にDBからwhere文などで
-        一致したデータを引っ張り出してindex.html.erb内で表示する流れになっている。-->
-        <!-- searchアクション内で検索するとき -->
-        <%= form_with(model: Task.new, url: search_tasks_path, method: :get, local: true, class: "navbar-form navbar-left") do |f| %>
-          <%= f.label :title_search, t("views.index.title_search"), class: "form-group" %>
-          <%= f.text_field :title, class: "form-control", placeholder: "#{Task.human_attribute_name :title}" %>
-          <%= f.label :status_search, t("views.index.status_search"), class: "form-group" %>
-          <%= f.select :status, Task.statuses_i18n.invert, include_blank: true, selected: "" %>
-          <!-- f.select :status, Task.statuses.map{ |k, v|[t("enums.task.status.#{k}"), v] }だと「'0' is not valid status」のerrorが起こる。
-          これは、taskインスタンスのstatusフィールドに整数の0ではなく、文字列の”0”を渡そうとしているからである。formはデフォルトで ""がついてしまっている。-->
-          <%= f.submit t("views.index.search"), class: "cp_btn" %>
-        <% end %>
-
-        <% if false %>
-          <!-- indexアクション内で検索するとき -->
-          <%= form_with(model: Task.new, url: tasks_path, method: :get, local: true) do |f| %>
-            <%= f.label :title_search, t("views.index.title_search") %>
-            <%= f.text_field :title %>
-            <%= f.label :status_search, t("views.index.status_search") %>
-            <%= f.select :status, Task.statuses_i18n.invert, include_blank: true, selected: "" %>
-            <%= f.hidden_field :search, value: "true" %>
-            <%= f.submit t("views.index.search") %>
+          <!--ここでは、form_withの引数にある「model: Task.new」で空の引き出しを作り、その中に検索したいタイトル名や
+          ステータス名を収納しコントローラに渡すことをしている。コントローラでは渡された情報を元にDBからwhere文などで
+          一致したデータを引っ張り出してindex.html.erb内で表示する流れになっている。-->
+          <!-- searchアクション内で検索するとき -->
+          <%= form_with(model: Task.new, url: search_tasks_path, method: :get, local: true, class: "navbar-form navbar-left col-xs-6 col-md-6") do |f| %>
+            <div class="form-group">
+              <%= f.label :title_search, t("views.index.title_search") %>
+              <%= f.text_field :title, class: "form-control", placeholder: "#{Task.human_attribute_name :title}" %>
+            </div>
+            <div class="form-group">
+              <%= f.label :status_search, t("views.index.status_search") %>
+              <%= f.select :status, Task.statuses_i18n.invert, include_blank: true, selected: "", class: "form-control" %>
+              <!-- f.select :status, Task.statuses.map{ |k, v|[t("enums.task.status.#{k}"), v] }だと「'0' is not valid status」のerrorが起こる。
+              これは、taskインスタンスのstatusフィールドに整数の0ではなく、文字列の”0”を渡そうとしているからである。formはデフォルトで ""がついてしまっている。-->
+            </div>
+            <%= f.submit t("views.index.search"), class: "cp_btn" %>
           <% end %>
-        <% end %>
 
-        <div class="dropdown navbar-right">
-          <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-            <%= t("views.index.sort") %>
-            <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <li><%= link_to t("views.index.end_time_limit_sort"), tasks_path(etl_sort: "true") %></li>
-            <li><%= link_to t("views.index.priority_sort"), tasks_path(pri_sort: "true") %></li>
-          </ul>
+          <% if false %>
+            <!-- indexアクション内で検索するとき -->
+            <%= form_with(model: Task.new, url: tasks_path, method: :get, local: true) do |f| %>
+              <%= f.label :title_search, t("views.index.title_search") %>
+              <%= f.text_field :title %>
+              <%= f.label :status_search, t("views.index.status_search") %>
+              <%= f.select :status, Task.statuses_i18n.invert, include_blank: true, selected: "" %>
+              <%= f.hidden_field :search, value: "true" %>
+              <%= f.submit t("views.index.search") %>
+            <% end %>
+          <% end %>
+          <!-- ソートメニュー -->
+          <div class="dropdown navbar-right col-xs-1 col-md-1">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              <%= t("views.index.sort") %>
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+              <li><%= link_to t("views.index.end_time_limit_sort"), tasks_path(etl_sort: "true") %></li>
+              <li><%= link_to t("views.index.priority_sort"), tasks_path(pri_sort: "true") %></li>
+            </ul>
+          </div>
         </div>
-
       </nav>
     </header>
-    <p><%= notice %></p>
     <div class="wrapper">
+      <p class="notice_info"><%= notice %></p>
     <%= yield %>
     </div>
   </body>

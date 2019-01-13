@@ -1,15 +1,20 @@
 <div class="container-fluid">
-  <%= paginate @tasks %>
   <div class="row row-eq-height">
     <% @tasks.each do |task| %>
       <div class="col-xs-12 col-md-3">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <p><%= task.status_i18n %></p>
+            <% if task.status == "waiting" %>
+              <p><span class="label label-danger"><%= task.status_i18n %></span></p>
+            <% elsif task.status == "working" %>
+              <p><span class="label label-primary"><%= task.status_i18n %></span></p>
+            <% elsif task.status == "completed" %>
+              <p><span class="label label-default"><%= task.status_i18n %></span></p>
+            <% end %>
             <h3 class="panel-title"><%= task.title %></h3>
           </div>
           <div class="panel-body">
-            <p><%= Task.human_attribute_name :content %> : <%= task.content %></p>
+            <p><%= Task.human_attribute_name :content %> : <%= simple_format(task.content) %></p>
             <p><%= Task.human_attribute_name :end_time_limit %> : <%= l(task.end_time_limit, format: :long) %></p>
             <p class="border"><%= Task.human_attribute_name :priority %> : <%= task.priority_i18n %></p>
             <%= link_to t("views.index.show"), task_path(task.id) %> |
@@ -20,4 +25,5 @@
       </div>
     <% end %>
   </div>
+  <%= paginate @tasks %>
 </div>
