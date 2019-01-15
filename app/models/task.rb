@@ -15,4 +15,6 @@ class Task < ApplicationRecord
   # enumを使えば、数字を意味のある文字として扱える。DBには割り当てられた整数が保存される。
   enum status: { waiting: 0, working: 1, completed: 2 }#ステータス
   enum priority: { row: 0, medium: 1, high: 2 }#優先順位
+
+  belongs_to :user
 end
