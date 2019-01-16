@@ -4,6 +4,13 @@ ja:
     update: "編集しました。"
     destroy: "削除しました。"
     blank: "検索欄が空白です。何か入力してください。"
+    login_success: "ログインに成功しました。"
+    login_miss: "ログインに失敗しました..."
+    login_info: "ログインして下さい。"
+    logout: "ログアウトしました。"
+    sign_up_and_login: "「アカウント登録 + ログイン」しました。"
+    sign_up_info: "ログイン済みのアカウントです。"
+    my_page_info: "%{user}さんのマイページはこちらです。"
   enums:
     task:
       priority:
@@ -21,25 +28,43 @@ ja:
       previous: "&lsaquo; 前"
       next: "次 &rsaquo;"
       truncate: "..."
-    index:
-      title: "一覧画面"
-      show: "詳細"
-      edit: "編集"
-      destroy: "削除"
-      sort: "並び替え"
-      end_time_limit_sort: "終了期限でソートする"
-      priority_sort: "優先順位でソートする"
-      search: "検索"
-      title_search: "タスク名で絞り込む"
-      status_search: "ステータスで絞り込む"
-    new:
-      title: "新規作成"
-      back: "戻る"
-    show:
-      title: "詳細画面"
-      edit: "編集"
-      destroy: "削除"
-      back: "戻る"
-    edit:
-      title: "編集画面"
-      back: "戻る"
+    application:
+      logout: "ログアウト"
+      sign_up: "サインアップ"
+      login: "ログイン"
+    sessions:
+      new:
+        page: "ログイン画面"
+        submit: "ログイン"
+    users:
+      show:
+        page: "マイページ"
+        user_page: "さんのページ"
+        email: "メールアドレス："
+        back: "一覧画面へ戻る"
+      new:
+        page: "アカウント登録画面"
+        back: "ログイン画面へ戻る"
+    tasks:
+      index:
+        page: "一覧画面"
+        show: "詳細"
+        edit: "編集"
+        destroy: "削除"
+        sort: "並び替え"
+        end_time_limit_sort: "終了期限でソートする"
+        priority_sort: "優先順位でソートする"
+        search: "検索"
+        title_search: "タスク名で絞り込む"
+        status_search: "ステータスで絞り込む"
+      new:
+        page: "新規作成"
+        back: "一覧画面へ戻る"
+      show:
+        page: "詳細画面"
+        edit: "編集"
+        destroy: "削除"
+        back: "一覧画面へ戻る"
+      edit:
+        page: "編集画面"
+        back: "一覧画面へ戻る"

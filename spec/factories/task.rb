@@ -9,6 +9,7 @@ FactoryBot.define do
     end_time_limit { DateTime.now }
     status { 0 }
     priority { 0 }
+    user {}
   end
 
   # 作成するテストデータの名前を「second_task」とします
@@ -19,6 +20,7 @@ FactoryBot.define do
     end_time_limit { DateTime.tomorrow }
     status { 0 }
     priority { 1 }
+    user {}
   end
 
   factory :third_task, class: Task do
@@ -27,5 +29,6 @@ FactoryBot.define do
     end_time_limit { DateTime.now.since(3.days) }#3日後
     status { 0 }
     priority { 2 }
+    user {}
   end
 end

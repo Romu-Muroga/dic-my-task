@@ -1,8 +1,14 @@
 ja:
   activerecord:
     models:
+      user: "ユーザー"
       task: "タスク"
     attributes:
+      user:
+        name: "氏名"
+        email: "メールアドレス"
+        password: "パスワード"
+        password_confirmation: "パスワード（確認用）"
       task:
         title: "タスク名"
         content: "タスク詳細"

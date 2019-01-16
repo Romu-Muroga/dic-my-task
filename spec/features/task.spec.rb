@@ -2,30 +2,43 @@
 require "rails_helper"
 
 # RSpec.featureの右側に、「タスク管理機能」のように、テスト項目の名称を書きます（do ~ endでグループ化されています）
-RSpec.feature "タスク管理機能（一覧・作成日時の降順・詳細・終了期限のソート・優先順位でソート）", type: :feature do
-  # background（Rspec -> before）を使って、「タスク管理機能（一覧と作成日時の降順）」というカテゴリの中で使われるデータを共通化
+RSpec.feature "タスク管理機能", type: :feature do
+  # ユーザー
+  user1 = FactoryBot.create(:user)
+  user2 = FactoryBot.create(:second_user)
+  # タスク
+  task1 = FactoryBot.create(:task, user: user1)
+  task2 = FactoryBot.create(:second_task, user: user1)
+  task3 = FactoryBot.create(:third_task, user: user1)
+
+  # background（Rspec -> before）を使って、「タスク管理機能」というカテゴリの中で使われるデータを共通化
   background do
-    @task1 = FactoryBot.create(:task)
-    @task2 = FactoryBot.create(:second_task)
-    @task3 = FactoryBot.create(:third_task)
+    visit root_path
+
+    fill_in "メールアドレス", with: 'test_user_01@dic.com'
+    fill_in "パスワード", with: 'password'
+
+    within ".form_outer" do
+      click_on "ログイン"
+    end
+
+    expect(page).to have_content "ログインに成功しました。"
   end
+
   # scenario（itのalias）の中に、確認したい各項目のテストの処理を書きます。
-  scenario "タスク一覧のテスト" do
-    # あらかじめタスク一覧のテストで使用するためのタスクを二つ作成する
-    # Task.create!(title: 'test_task_01', content: 'testtesttest')
-    # Task.create!(title: 'test_task_02', content: 'samplesample')
-    # 上記２行はbackground do ~ end内で共通化したため、コメントアウト
+  scenario "自分が作成したタスク一覧のテスト" do
+    # 一覧画面という名前のついたボタンをクリック（タスク一覧ページに遷移する）
+    click_on "一覧画面"
 
-    # tasks_pathにvisitする（タスク一覧ページに遷移する）
-    visit tasks_path
-
-    # visitした（到着した）expect(page)に（タスク一覧ページに）「testtesttest」「samplesample」という文字列が
-    # have_contentされているか？（含まれているか？）ということをexpectする（確認・期待する）テストを書いている
-    expect(page).to have_content "testtesttest"
-    expect(page).to have_content "samplesample"
+    # 遷移したexpect(page)に（タスク一覧ページに）「test_task_01」「test_task_02」「test_task_03」という文字列が
+    # have_contentされているか？（含まれているか？）ということをexpectする（確認・期待する）テスト
+    expect(page).to have_content "test_task_01"
+    expect(page).to have_content "test_task_02"
+    expect(page).to have_content "test_task_03"
   end
 
   scenario "タスクが作成日時の降順に並んでいるかのテスト" do
+
     visit tasks_path
     # all メソッドでは条件に合致した要素の配列が返ってくる
     all(".panel")[0].click_link "詳細"
@@ -35,14 +48,20 @@ RSpec.feature "タスク管理機能（一覧・作成日時の降順・詳細�
 
     all(".panel")[1].click_link "詳細"
     expect(page).to have_content "test_task_02"
+
+    visit tasks_path
+
+    all(".panel")[2].click_link "詳細"
+    expect(page).to have_content "test_task_01"
   end
 
   scenario "タスク詳細のテスト" do
-    visit task_path(@task1.id)
+    visit task_path(task1)
     expect(page).to have_content "test_task_01", "testtesttest"
   end
 
   scenario "タスクが終了期限で降順に並んでいるかのテスト" do
+
     visit tasks_path
     click_on "終了期限でソートする"
 
@@ -63,6 +82,7 @@ RSpec.feature "タスク管理機能（一覧・作成日時の降順・詳細�
   end
 
   scenario "タスクが優先順位で降順に並んでいるかのテスト" do
+
     visit tasks_path
     click_on "優先順位でソートする"
 
@@ -81,10 +101,6 @@ RSpec.feature "タスク管理機能（一覧・作成日時の降順・詳細�
     all(".panel")[2].click_link "詳細"
     expect(page).to have_content "低"
   end
-
-end
-
-RSpec.feature "タスク管理機能（作成）", type: :feature do
 
   scenario "タスク作成のテスト" do
     # new_task_pathにvisitする（タスク登録ページに遷移する）

@@ -1,14 +1,15 @@
 class TasksController < ApplicationController
   before_action :set_params, only: [:show, :edit, :update, :destroy]
+  before_action :login_check
   PER = 8
 
   def index
     if params[:etl_sort]
-      @tasks = Task.page(params[:page]).per(PER).end_time_limit_sorted#all省略
+      @tasks = current_user.tasks.page(params[:page]).per(PER).end_time_limit_sorted#all省略
     elsif params[:pri_sort]
-      @tasks = Task.page(params[:page]).per(PER).priority_sorted#all省略
+      @tasks = current_user.tasks.page(params[:page]).per(PER).priority_sorted#all省略
     else
-      @tasks = Task.page(params[:page]).per(PER).created_at_sorted#all省略
+      @tasks = current_user.tasks.page(params[:page]).per(PER).created_at_sorted#all省略
     end
   end
 
@@ -40,16 +41,17 @@ class TasksController < ApplicationController
   def search
     # present?を書かないとフィールドが空欄（""）でも検索しにいってしまいエラーが起こる？
     if params[:task][:title].present? && params[:task][:status].present?
-      @tasks = Task.title_status_search(params[:task][:title], params[:task][:status]).page(params[:page]).per(PER)
+      @tasks = current_user.tasks.title_status_search(params[:task][:title], params[:task][:status]).page(params[:page]).per(PER)
       render "index"
     elsif params[:task][:title].present?
-      @tasks = Task.title_search(params[:task][:title]).page(params[:page]).per(PER)
+      @tasks = current_user.tasks.title_search(params[:task][:title]).page(params[:page]).per(PER)
       render "index"
     elsif params[:task][:status].present?
-      @tasks = Task.status_search(params[:task][:status]).page(params[:page]).per(PER)
+      @tasks = current_user.tasks.status_search(params[:task][:status]).page(params[:page]).per(PER)
       render "index"
     elsif params[:task][:title].blank? && params[:task][:status].blank?
-      redirect_to tasks_path, notice: t("flash.blank")
+      flash[:danger] = t("flash.blank")
+      redirect_to tasks_path
     end
   end
 
@@ -58,9 +60,11 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = Task.new(task_params)#この時点では外部キーのuser_idの値はnil
+    @task.user_id = current_user.id#現在ログインしているuserのidを、@taskのuser_idカラムに挿入する。
     if @task.save
-      redirect_to task_path(@task.id), notice: t("flash.create")
+      flash[:success] = t("flash.create")
+      redirect_to task_path(@task.id)
     else
       render "new"
     end
@@ -74,7 +78,8 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      redirect_to tasks_path, notice: t("flash.update")
+      flash[:success] = t("flash.update")
+      redirect_to tasks_path
     else
       render "edit"
     end
@@ -82,13 +87,21 @@ class TasksController < ApplicationController
 
   def destroy
     @task.destroy
-    redirect_to tasks_path, notice: t("flash.destroy")
+    flash[:success] = t("flash.destroy")
+    redirect_to tasks_path
   end
 
   private
 
   def set_params
     @task = Task.find(params[:id])
+  end
+
+  def login_check
+    unless logged_in?
+      flash[:info] = t("flash.login_info")
+      redirect_to new_session_path
+    end
   end
 
   def task_params
