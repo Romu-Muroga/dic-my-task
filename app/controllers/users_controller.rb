@@ -26,14 +26,14 @@ class UsersController < ApplicationController
 
   def login_check
     if logged_in?
-      flash[:info] = t("flash.sign_up_info")
+      flash[:danger] = t("flash.sign_up_info")
       redirect_to user_path(current_user.id)
     end
   end
 
   def current_user_check
     unless params[:id].to_i == current_user.id
-      flash[:info] = t("flash.my_page_info", user: current_user.name)
+      flash[:danger] = t("flash.my_page_info", user: current_user.name)
       redirect_to user_path(current_user.id)
     end
   end

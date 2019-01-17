@@ -50,7 +50,7 @@ class TasksController < ApplicationController
       @tasks = current_user.tasks.status_search(params[:task][:status]).page(params[:page]).per(PER)
       render "index"
     elsif params[:task][:title].blank? && params[:task][:status].blank?
-      flash[:danger] = t("flash.blank")
+      flash[:info] = t("flash.blank")
       redirect_to tasks_path
     end
   end
@@ -98,8 +98,11 @@ class TasksController < ApplicationController
   end
 
   def login_check
-    unless logged_in?
-      flash[:info] = t("flash.login_info")
+    if logged_in? == false
+      flash[:danger] = t("flash.login_info")
+      redirect_to new_session_path
+    elsif logged_in? == false && (@task.user_id == current_user.id) == false
+      flash[:danger] = t("flash.login_alert")
       redirect_to new_session_path
     end
   end

@@ -7,6 +7,7 @@ ja:
     login_success: "ログインに成功しました。"
     login_miss: "ログインに失敗しました..."
     login_info: "ログインして下さい。"
+    login_alert: "権限がありません"
     logout: "ログアウトしました。"
     sign_up_and_login: "「アカウント登録 + ログイン」しました。"
     sign_up_info: "ログイン済みのアカウントです。"
