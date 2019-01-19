@@ -24,7 +24,7 @@
           <!-- TODO: [:admin, user]の意味、taskを削除するときもconfirm追加する -->
           <td>
             <%= link_to t("views.users.index.edit"), edit_admin_user_path(user.id) %>&nbsp;
-            <%= link_to t("views.users.index.destroy"), [:admin, user], method: :delete, data: { confirm: t("views.users.index.confirm", user: user.name)} %>
+            <%= link_to t("views.users.index.destroy"), [:admin, user], method: :delete, data: { confirm: t("views.users.index.confirm", user: user.name) } %>
           </td>
         </tr>
       <% end %>

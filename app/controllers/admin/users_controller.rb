@@ -42,7 +42,7 @@ class Admin::UsersController < ApplicationController
       flash[:success] = t("flash.update")
       redirect_to admin_users_path
     else
-      # flash[:danger] = t("flash.admin_loss")
+      flash[:danger] = t("flash.admin_loss")
       render "edit"
     end
   end
@@ -51,12 +51,11 @@ class Admin::UsersController < ApplicationController
   end
 
   def destroy
-    if @user.admin? && @user.admin_users_last?
-      flash[:danger] = t("flash.admin_loss")
+    if @user.destroy
+      flash[:success] = t("flash.user_destroy", user: @user.name)
       redirect_to admin_users_path
     else
-      @user.destroy
-      flash[:success] = t("flash.user_destroy", user: @user.name)
+      flash[:danger] = t("flash.admin_loss")
       redirect_to admin_users_path
     end
   end

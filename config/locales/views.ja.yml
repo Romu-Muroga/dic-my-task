@@ -74,6 +74,7 @@ ja:
         search: "検索"
         title_search: "タスク名で絞り込む"
         status_search: "ステータスで絞り込む"
+        confirm: "タスクを削除します。よろしいですか？"
       new:
         page: "新規作成"
         back: "一覧画面へ戻る"
@@ -81,6 +82,7 @@ ja:
         page: "詳細"
         edit: "編集"
         destroy: "削除"
+        confirm: "タスクを削除します。よろしいですか？"
         back: "一覧画面へ戻る"
       edit:
         page: "編集"

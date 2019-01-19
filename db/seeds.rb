@@ -13,8 +13,8 @@
 #   end
 # end
 #
-# User.create!(name: "テスト二郎",
-#              email: "test2@dic.com",
-#              password: "tttttttttt",
+# User.create!(name: "テスト一郎",
+#              email: "test@dic.com",
+#              password: "12345678",
 #              admin: "true"
 #             )

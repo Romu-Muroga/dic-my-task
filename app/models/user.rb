@@ -4,7 +4,9 @@ class User < ApplicationRecord
   validates :name, presence: true, length: { in: 1..100 }
   validates :email, presence: true, length: { in: 1..200 }, format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }, uniqueness: true
   validates :password, presence: true, length: { in: 8..200 }
-  # validates :admin, presence: true, if: :admin_users_last?#ユーザーが管理者権限を持つ最後のユーザーであったときのみに有効なバリデーション
+  #validates :admin, presence: true
+  before_update :admin_users_last_update?
+  before_destroy :admin_users_last_destroy?
   # パスワード管理
   has_secure_password
   # セキュアにハッシュ化したパスワードを、データベース内のpassword_digestというカラムに保存する
@@ -13,7 +15,15 @@ class User < ApplicationRecord
   # アソシエーション
   has_many :tasks, dependent: :destroy#関連するモデルも削除する（「dependent：依存している」という意味）
   # 管理者権限を持つユーザーが残り１名になっているか確認
-  def admin_users_last?
-    User.where(admin: true).count == 1
+  private
+  def admin_users_last_update?
+    # 管理者権限を持つユーザーが１名かつ@userが管理者権限を持つユーザーと完全一致していたらthrow(:abort)でエラーを起こす。
+    admin_users = User.where(admin: true)
+    throw(:abort) if admin_users.count == 1 && admin_users.first === self
+  end
+
+  def admin_users_last_destroy?
+    # 管理者権限を持つユーザーが１名かつ@userが管理者権限を持っていたらthrow(:abort)でエラーを起こす。
+    throw(:abort) if User.where(admin: true).count == 1 && self.admin?
   end
 end
