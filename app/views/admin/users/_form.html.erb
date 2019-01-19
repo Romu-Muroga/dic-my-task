@@ -1,4 +1,4 @@
-<%= form_with(model: user, local: true, class: "form_outer") do |f| %>
+<%= form_with(model: [:admin, user], local: true, class: "form_outer") do |f| %><!-- TODO: [:admin, user] 書き方確認 -->
   <div class="form_inner">
     <% if user.errors.any? %>
       <div id="error_explanation">
@@ -12,11 +12,15 @@
     <% end %>
     <div class="form-group">
       <%= f.label :name %>
-      <%= f.text_field :name, placeholder: "#{User.human_attribute_name :name}", class: "form-control form-title" %>
+      <%= f.text_field :name, placeholder: "#{User.human_attribute_name :name}", class: "form-control form-short" %>
     </div>
     <div class="form-group">
       <%= f.label :email %>
       <%= f.email_field :email, placeholder: "#{User.human_attribute_name :email}", class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :admin %>
+      <%= f.check_box :admin %><!-- TODO: class: "form-check-input" -->
     </div>
     <div class="form-group">
       <%= f.label :password %>

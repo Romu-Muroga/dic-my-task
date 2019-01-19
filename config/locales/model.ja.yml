@@ -5,13 +5,19 @@ ja:
       task: "タスク"
     attributes:
       user:
+        id: "登録ID"
         name: "氏名"
         email: "メールアドレス"
+        admin: 管理者権限
         password: "パスワード"
         password_confirmation: "パスワード（確認用）"
+        created_at: "登録日時"
+        updated_at: "更新日時"
       task:
         title: "タスク名"
         content: "タスク詳細"
         end_time_limit: "終了期限"
         status: "状態"
         priority: "優先順位"
+        created_at: "登録日時"
+        updated_at: "更新日時"

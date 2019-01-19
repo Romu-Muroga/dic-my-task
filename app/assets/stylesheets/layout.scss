@@ -56,9 +56,8 @@ header a {
   margin-top: 80px;
 }
 
-// 通知文
-// p.notice_info {
-//   text-align: center;
-//   color: white;
-//   font-weight: bold;
-// }
+.wrapper .login_user {
+  text-align: right;
+  color: white;
+  margin: 0 10px 10px; 
+}

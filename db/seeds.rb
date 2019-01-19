@@ -12,8 +12,9 @@
 #                  )
 #   end
 # end
-# 
-# User.create!(name: "テスト太郎",
-#              email: "test@dic.com",
-#              password_digest: "tttttttttt"
+#
+# User.create!(name: "テスト二郎",
+#              email: "test2@dic.com",
+#              password: "tttttttttt",
+#              admin: "true"
 #             )

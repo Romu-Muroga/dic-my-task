@@ -1,0 +1,20 @@
+.table_outer {
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 75px;
+}
+
+.table {
+  background-color: antiquewhite;
+  margin-top: 20px;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.table_second {
+  margin-top: 80px;
+}
+
+td {
+  word-wrap:break-word;
+}
