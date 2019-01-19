@@ -17,9 +17,10 @@ class User < ApplicationRecord
   # 管理者権限を持つユーザーが残り１名になっているか確認
   private
   def admin_users_last_update?
-    # 管理者権限を持つユーザーが１名かつ@userが管理者権限を持つユーザーと完全一致していたらthrow(:abort)でエラーを起こす。
+    # （管理者権限を持つユーザーが１名かつself（@user）が管理者権限を持つユーザーと完全一致）かつself（@user）が管理者権限を持っていなかったら
+    # throw(:abort)でエラーを起こす。
     admin_users = User.where(admin: true)
-    throw(:abort) if admin_users.count == 1 && admin_users.first === self
+    throw(:abort) if (admin_users.count == 1 && admin_users.first === self) && !(self.admin?)
   end
 
   def admin_users_last_destroy?

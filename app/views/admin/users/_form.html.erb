@@ -18,10 +18,12 @@
       <%= f.label :email %>
       <%= f.email_field :email, placeholder: "#{User.human_attribute_name :email}", class: "form-control" %>
     </div>
-    <div class="form-group">
-      <%= f.label :admin %>
-      <%= f.check_box :admin %><!-- TODO: class: "form-check-input" -->
-    </div>
+    <%# <% if action_name != "edit" || @user.admin? %> %>
+      <div class="form-group">
+        <%= f.label :admin %>
+        <%= f.check_box :admin %><!-- TODO: class: "form-check-input" -->
+      </div>
+    <%# <% end %> %>
     <div class="form-group">
       <%= f.label :password %>
       <%= f.password_field :password, placeholder: "#{User.human_attribute_name :password}", class: "form-control" %>

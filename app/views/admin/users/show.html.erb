@@ -22,7 +22,7 @@
         <td><%= l(@user.created_at, format: :long) %></td>
         <td><%= l(@user.updated_at, format: :long) %></td>
         <td><%= @user.tasks.count %></td>
-        <!-- TODO: [:admin, user]の意味、taskを削除するときもconfirm追加する -->
+        <!-- TODO: [:admin, user]の意味 -->
         <td>
           <%= link_to t("views.users.show.edit"), edit_admin_user_path(@user.id) %>&nbsp;
           <%= link_to t("views.users.show.destroy"), [:admin, @user], method: :delete, data: { confirm: t("views.users.index.confirm", user: @user.name)} %>
