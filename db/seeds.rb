@@ -8,7 +8,12 @@
 #     Task.create!(title: title,
 #                  content: content,
 #                  end_time_limit: end_time_limit,
-#                  status: status,
+#                  status: status
 #                  )
 #   end
 # end
+# 
+# User.create!(name: "テスト太郎",
+#              email: "test@dic.com",
+#              password_digest: "tttttttttt"
+#             )

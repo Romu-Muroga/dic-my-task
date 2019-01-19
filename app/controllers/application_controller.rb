@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  # 全コントローラでSessionsHelperモジュールを使用するための記述
+  include SessionsHelper
   # basic認証をproduction環境にのみ設定
   before_action :basic if Rails.env == "production"
 

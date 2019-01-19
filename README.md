@@ -19,30 +19,32 @@
 ### データベース
 ###### usersテーブル
 - モデル名：Userモデル
- - nameカラム => string型（３０文字以下）
- - passwordカラム => string型（８文字以上）
- - index => emailカラム
+  - nameカラム => string型（１００文字以下）
+  - emailカラム　=> string型（２００文字以下）
+    - index, unique
+  - password_digestカラム => string型（８文字以上２００文字以下）
 
 ###### tasksテーブル
 - モデル名：Taskモデル
- - titleカラム => string型（１００文字以下）
- - contentカラム => string型（５００文字以下）
- - end_time_limitカラム => datetime型、defalt: 現在時刻
- - priorityカラム => integer型、defalt: 中
- - statusカラム => integer型、defalt: 未着手
- - user_idカラム => references
- - index => titleカラム
- - index => statusカラム
+  - titleカラム => string型（１００文字以下）
+  - contentカラム => string型（５００文字以下）
+  - end_time_limitカラム => datetime型、defalt: 現在時刻
+  - priorityカラム => integer型、defalt: 中
+  - statusカラム => integer型、defalt: 未着手
+  - user_idカラム => references
+  - index => titleカラム
+  - index => statusカラム
+  - index => user_idカラム
 
 ###### labelsテーブル
 - モデル名：Labelモデル
- - nameカラム => string型（５０文字以下）
- - task_idカラム => references
+  - nameカラム => string型（５０文字以下）
+  - task_idカラム => references
 
 ###### task_labelsテーブル（中間テーブル）
 - モデル名：TaskLabelモデル
- - task_idカラム => integer型
- - label_idカラム => integer型
+  - task_idカラム => integer型
+  - label_idカラム => integer型
 
 ### Herokuにデプロイする手順
 1. デプロイする前にアセットプリコンパイルをします。

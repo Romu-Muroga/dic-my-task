@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-offset-2 col-md-8">
-      <h3><%= t("views.show.title") %></h3>
+      <h3><%= t("views.tasks.show.page") %></h3>
       <div class="panel panel-default">
         <div class="panel-heading">
           <% if @task.status == "waiting" %>
@@ -17,12 +17,12 @@
           <p><%= Task.human_attribute_name :content %> : <%= simple_format(@task.content) %></p>
           <p><%= Task.human_attribute_name :end_time_limit %> : <%= l(@task.end_time_limit, format: :long) %></p>
           <p class="border"><%= Task.human_attribute_name :priority %> : <%= @task.priority_i18n %></p>
-          <%= link_to t("views.index.edit"), edit_task_path(@task.id) %> |
-          <%= link_to t("views.index.destroy"), task_path(@task.id), method: :delete %>
+          <%= link_to t("views.tasks.index.edit"), edit_task_path(@task.id) %> |
+          <%= link_to t("views.tasks.index.destroy"), task_path(@task.id), method: :delete %>
         </div>
       </div>
       <!-- bootstrapの公式ページには「可能な限り<button>要素を使用することを強くお勧めします。」と書いてある -->
-      <%= link_to t("views.show.back"), tasks_path, class: "btn btn-default" %>
+      <%= link_to t("views.tasks.show.back"), tasks_path, class: "btn btn-default" %>
     </div>
   </div>
 </div>
