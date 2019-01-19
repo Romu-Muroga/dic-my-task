@@ -5,7 +5,7 @@ class Admin::UsersController < ApplicationController
   before_action :set_user, only: [:edit, :update, :show, :destroy]
 
   def index
-    @users = User.all.includes(:tasks)
+    @users = User.select(:id, :name, :email, :created_at, :updated_at, :admin).includes(:tasks)# N+1問題を回避
   end
 
   def new
@@ -29,15 +29,6 @@ class Admin::UsersController < ApplicationController
   end
 
   def update
-    # admin_users = User.where(admin: true)
-    # if admin_users.include?(@user.name) && admin_users.count == 1
-    #   flash[:danger] = t("flash.admin_loss")
-    #   render "edit"
-    # elsif @user.update(user_params)
-    #   flash[:success] = t("flash.update")
-    #   redirect_to admin_users_path
-    # end
-
     if @user.update(user_params)
       flash[:success] = t("flash.update")
       redirect_to admin_users_path
@@ -80,7 +71,7 @@ class Admin::UsersController < ApplicationController
 
   # 管理者権限を持つユーザーではなかったらルートパスへ移動
   def current_user_admin?
-    unless current_user.admin?
+    unless logged_in? && current_user.admin?
       flash[:danger] = t("flash.admin_alert")
       redirect_to root_path
     end
