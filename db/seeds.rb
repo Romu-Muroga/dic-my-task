@@ -13,8 +13,8 @@
 #   end
 # end
 #
-User.create!(name: "テスト一郎",
-             email: "test@dic.com",
+User.create!(name: "seedデータ",
+             email: "seed@dic.com",
              password: "12345678",
              admin: "true"
             )
