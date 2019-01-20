@@ -33,7 +33,7 @@ class Admin::UsersController < ApplicationController
       flash[:success] = t("flash.update")
       redirect_to admin_users_path
     else
-      flash[:danger] = t("flash.admin_loss") if @user.admin_users_last?
+      # flash[:danger] = t("flash.admin_loss") if @user.admin_users_last?# before_updateのエラーをflashを使って表示させるのとき
       render "edit"
     end
   end

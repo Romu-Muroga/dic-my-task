@@ -14,11 +14,11 @@ class User < ApplicationRecord
   # authenticateメソッドが使えるようになる (引数の文字列がパスワードと一致するとUserオブジェクトを、間違っているとfalseを返すメソッド)
   # アソシエーション
   has_many :tasks, dependent: :destroy#関連するモデルも削除する（「dependent：依存している」という意味）
-
-  def admin_users_last?
-    admin_users = User.where(admin: true)
-    true if (admin_users.count == 1 && admin_users.first == self) && !(self.admin?)
-  end
+  # TODO: admin_users_last_update?メソッドを外部から呼び出すにはどうしたらいいか？
+  # def admin_users_last?
+  #   admin_users = User.where(admin: true)
+  #   true if (admin_users.count == 1 && admin_users.first == self) && !(self.admin?)
+  # end
 
   private
   def admin_users_last_update?
@@ -26,8 +26,10 @@ class User < ApplicationRecord
     # のとき、throw(:abort)でrollbackを起こす。
     # ※1 ===で完全一致の検証はできない。ActiveRecordで、オブジェクト同士を==で比較した場合、全属性が同値かどうかは検証しない。==はidが同値かどうかを検証。
     admin_users = User.where(admin: true)
-    # throw(:abort) if (admin_users.count == 1 && admin_users.first == self) && !(self.admin?)と書いても同じ処理
+    # (errors.add(:admin, I18n.t("errors.messages.admin")); throw(:abort)) if (admin_users.count == 1 && admin_users.first == self) && !(self.admin?)
+    # と書いても同じ処理だけど可読性が低い。
     if (admin_users.count == 1 && admin_users.first == self) && !(self.admin?)
+      errors.add(:admin, I18n.t("errors.messages.admin"))
       throw(:abort)
     else
       true

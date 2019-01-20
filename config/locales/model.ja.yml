@@ -21,3 +21,6 @@ ja:
         priority: "優先順位"
         created_at: "登録日時"
         updated_at: "更新日時"
+  errors:
+    messages:
+      admin: "は最低１名必要です。解除または削除する必要がある場合は、新たに管理者権限を持つユーザーを登録してください。"  
