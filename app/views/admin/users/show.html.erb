@@ -1,0 +1,66 @@
+<div class="table_outer">
+  <h3><%= t("views.users.show.page", user: @user.name) %></h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th width="100"><%= User.human_attribute_name :id %></th>
+        <th><%= User.human_attribute_name :name %></th>
+        <th><%= User.human_attribute_name :email %></th>
+        <th><%= User.human_attribute_name :admin %></th>
+        <th><%= User.human_attribute_name :created_at %></th>
+        <th><%= User.human_attribute_name :updated_at %></th>
+        <th><%= t("views.users.index.task_count") %></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= @user.id %></td>
+        <td><%= @user.name %></td>
+        <td><%= @user.email %></td>
+        <td><%= @user.admin? ? t("views.users.index.admin_yes") : t("views.users.index.admin_no") %></td>
+        <td><%= l(@user.created_at, format: :long) %></td>
+        <td><%= l(@user.updated_at, format: :long) %></td>
+        <td><%= @user.tasks.count %></td>
+        <!-- TODO: [:admin, user]の意味 -->
+        <td>
+          <%= link_to t("views.users.show.edit"), edit_admin_user_path(@user.id) %>&nbsp;
+          <%= link_to t("views.users.show.destroy"), [:admin, @user], method: :delete, data: { confirm: t("views.users.index.confirm", user: @user.name)} %>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <table class="table table_second">
+    <thead>
+      <tr>
+        <th width="100"><%= Task.human_attribute_name :status %></th>
+        <th><%= Task.human_attribute_name :title %></th>
+        <!-- td要素やth要素に width=""、height="" を追加すると、セルのサイズを指定することができます。-->
+        <th width="300"><%= Task.human_attribute_name :content %></th>
+        <th><%= Task.human_attribute_name :end_time_limit %></th>
+        <th><%= Task.human_attribute_name :priority %></th>
+        <th><%= Task.human_attribute_name :created_at %></th>
+        <th><%= Task.human_attribute_name :updated_at %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @user.tasks.each do |task| %>
+        <tr>
+          <% if task.status == "waiting" %>
+            <td><span class="label label-danger"><%= task.status_i18n %></span></td>
+          <% elsif task.status == "working" %>
+            <td><span class="label label-primary"><%= task.status_i18n %></span></td>
+          <% elsif task.status == "completed" %>
+            <td><span class="label label-default"><%= task.status_i18n %></span></td>
+          <% end %>
+          <td><%= task.title %></td>
+          <td><%= task.content %></td>
+          <td><%= l(task.end_time_limit, format: :long) %></td>
+          <td><%= task.priority_i18n %></td>
+          <td><%= l(task.created_at, format: :long) %></td>
+          <td><%= l(task.updated_at, format: :long) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

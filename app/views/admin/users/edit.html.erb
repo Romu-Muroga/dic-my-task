@@ -1,9 +1,9 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-offset-4 col-md-4">
-      <h3><%= t("views.users.new.page") %></h3>
+      <h3><%= t("views.users.edit.page") %></h3>
       <%= render partial: "form", locals: { user: @user } %>
-      <%= link_to t("views.users.new.back"), new_session_path, class: "btn btn-default" %>
+      <%= link_to t("views.users.edit.back"), admin_users_path, class: "btn btn-default" %>
     </div>
   </div>
 </div>

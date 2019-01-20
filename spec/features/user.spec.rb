@@ -4,7 +4,7 @@ RSpec.feature "ユーザー管理機能", type: :feature do
 
   background do
     FactoryBot.create(:user)
-    @user2 = FactoryBot.create(:second_user)
+    FactoryBot.create(:second_user)
   end
 
   scenario "ログインできるかテスト" do
@@ -20,27 +20,19 @@ RSpec.feature "ユーザー管理機能", type: :feature do
     expect(page).to have_content "ログインに成功しました。"
   end
 
-  scenario "ログインしていないのにタスクのページに飛ぼうとした場合、ログインページに遷移するかテスト" do
+  scenario "管理者権限を持たないユーザーがユーザー管理機能にアクセスできないようになっているかテスト" do
     visit root_path
 
-    click_on "一覧画面"
-
-    expect(page).to have_content "ログイン画面"
-  end
-
-  scenario "サインアップ(同時にログイン)できるかテスト" do
-    visit new_user_path
-
-    fill_in "氏名", with: "テスト太郎"
-    fill_in "メールアドレス", with: "test_user@dic.com"
+    fill_in "メールアドレス", with: "test_user_02@dic.com"
     fill_in "パスワード", with: "password"
-    fill_in "パスワード（確認用）", with: "password"
 
-    click_on "登録する"
+    within ".form_outer" do
+      click_on "ログイン"
+    end
 
-    expect(page).to have_content "「アカウント登録 + ログイン」しました。"
-    expect(page).to have_content "テスト太郎"
-    expect(page).to have_content "test_user@dic.com"
+    visit admin_users_path
+
+    expect(page).to have_content "管理者権限がありません。"
   end
 
   feature "ログインした状況", type: :feature do
@@ -54,16 +46,64 @@ RSpec.feature "ユーザー管理機能", type: :feature do
       end
     end
 
-    scenario "ログインしている時は、ユーザー登録画面（new画面）に行かせないように、コントローラで制御できているかテスト" do
-      visit new_user_path
+    scenario "管理者権限を持つユーザーがユーザー一覧画面へ遷移できるかテスト" do
+      click_on "管理画面へ"
 
-      expect(page).not_to have_content "アカウント登録画面"
+      expect(page).to have_content "test_user_01", "test_user_01@dic.com"
+      expect(page).to have_content "test_user_02", "test_user_02@dic.com"
     end
 
-    scenario "自分（current_user）以外のユーザのマイページ（userのshow画面）に行かせないように、コントローラで制御できているかテスト" do
-      visit user_path(@user2)
+    scenario "管理者権限を持つユーザーがユーザーを新規登録できるかテスト" do
+      visit new_admin_user_path
 
-      expect(page).to have_content "test_user_01さんのマイページはこちらです。"
+      fill_in "氏名", with: "テストユーザー"
+      fill_in "メールアドレス", with: "test_user@dic.com"
+      uncheck "管理者権限"
+      fill_in "パスワード", with: "password"
+      fill_in "パスワード（確認用）", with: "password"
+
+      click_on "登録する"
+
+      expect(page).to have_content "アカウント登録しました。"
+      expect(page).to have_content "氏名", "テストユーザー"
+      expect(page).to have_content "メールアドレス", "test_user@dic.com"
+      expect(page).to have_content "管理者権限", "なし"
+    end
+
+    scenario "管理者権限を持つユーザーが任意のユーザー詳細画面に遷移できるかテスト" do
+      click_on "管理画面へ"
+      click_link "test_user_01"
+
+      expect(page).to have_content "氏名", "test_user_01"
+      expect(page).to have_content "メールアドレス", "test_user_01@dic.com"
+      expect(page).to have_content "管理者権限", "あり"
+    end
+
+    scenario "管理者権限を持つユーザーが任意のユーザー情報を編集できるかテスト" do
+      click_on "管理画面へ"
+
+      all("tbody tr")[1].click_link "編集"
+
+      fill_in "氏名", with: "氏名を変更する"
+      fill_in "メールアドレス", with: "test_user@dic.com"
+      uncheck "管理者権限"
+      fill_in "パスワード", with: "password"
+      fill_in "パスワード（確認用）", with: "password"
+
+      click_on "更新する"
+
+      expect(page).to have_content "編集しました。"
+      expect(page).to have_content "氏名", "氏名を変更する"
+      expect(page).to have_content "メールアドレス", "test_user@dic.com"
+      expect(page).to have_content "管理者権限", "なし"
+    end
+
+    scenario "管理者権限を持つユーザーが任意のユーザーを削除できるかテスト" do
+      click_on "管理画面へ"
+
+      all("tbody tr")[1].click_link "削除"
+
+      expect(page).to have_content "ユーザー「test_user_02」を削除しました。"
     end
 
     scenario "ログアウトできるかテスト" do
