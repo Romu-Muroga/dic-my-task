@@ -3,15 +3,19 @@ ja:
     create: "登録しました。"
     update: "編集しました。"
     destroy: "削除しました。"
+    user_destroy: "ユーザー「%{user}」を削除しました。"
     blank: "検索欄が空白です。何か入力してください。"
     login_success: "ログインに成功しました。"
     login_miss: "ログインに失敗しました..."
     login_info: "ログインして下さい。"
     login_alert: "権限がありません"
     logout: "ログアウトしました。"
-    sign_up_and_login: "「アカウント登録 + ログイン」しました。"
-    sign_up_info: "ログイン済みのアカウントです。"
-    my_page_info: "%{user}さんのマイページはこちらです。"
+    # sign_up_and_login: "「アカウント登録 + ログイン」しました。"
+    sign_up: "アカウント登録しました。"
+    # sign_up_info: "ログイン済みのアカウントです。"
+    # my_page_info: "%{user}さんのマイページはこちらです。"
+    admin_alert: "管理者権限がありません。"
+    admin_loss: "管理者は最低１名必要です。解除または削除する必要がある場合は、新たに管理者権限を持つユーザーを登録してください。"
   enums:
     task:
       priority:
@@ -29,23 +33,35 @@ ja:
       previous: "&lsaquo; 前"
       next: "次 &rsaquo;"
       truncate: "..."
-    application:
+    layouts:
+      admin_page: "管理画面へ"
       logout: "ログアウト"
-      sign_up: "サインアップ"
       login: "ログイン"
+      login_user: "さんが現在ログイン中"
+    users:
+      index:
+        page: "管理画面（ユーザー一覧）"
+        sign_up: "ユーザー新規登録"
+        task_count: "タスク数"
+        admin_yes: "あり"
+        admin_no: "なし"
+        edit: "編集"
+        destroy: "削除"
+        confirm: "ユーザー「%{user}」を削除します。よろしいですか？"
+      show:
+        page: "管理画面（ユーザー「%{user}」さんの詳細）"
+        edit: "編集"
+        destroy: "削除"
+      new:
+        page: "ユーザー登録"
+        back: "ユーザー一覧へ戻る"
+      edit:
+        page: "ユーザーの編集"
+        back: "ユーザー一覧へ戻る"
     sessions:
       new:
         page: "ログイン画面"
         submit: "ログイン"
-    users:
-      show:
-        page: "マイページ"
-        user_page: "さんのページ"
-        email: "メールアドレス："
-        back: "一覧画面へ戻る"
-      new:
-        page: "アカウント登録画面"
-        back: "ログイン画面へ戻る"
     tasks:
       index:
         page: "一覧画面"
@@ -58,14 +74,16 @@ ja:
         search: "検索"
         title_search: "タスク名で絞り込む"
         status_search: "ステータスで絞り込む"
+        confirm: "タスクを削除します。よろしいですか？"
       new:
         page: "新規作成"
         back: "一覧画面へ戻る"
       show:
-        page: "詳細画面"
+        page: "詳細"
         edit: "編集"
         destroy: "削除"
+        confirm: "タスクを削除します。よろしいですか？"
         back: "一覧画面へ戻る"
       edit:
-        page: "編集画面"
+        page: "編集"
         back: "一覧画面へ戻る"

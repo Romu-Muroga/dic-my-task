@@ -19,7 +19,7 @@
             <p class="border"><%= Task.human_attribute_name :priority %> : <%= task.priority_i18n %></p>
             <%= link_to t("views.tasks.index.show"), task_path(task.id) %> |
             <%= link_to t("views.tasks.index.edit"), edit_task_path(task.id) %> |
-            <%= link_to t("views.tasks.index.destroy"), task_path(task.id), method: :delete %>
+            <%= link_to t("views.tasks.index.destroy"), task_path(task.id), method: :delete, data: { confirm: t("views.tasks.index.confirm") } %>
           </div>
         </div>
       </div>

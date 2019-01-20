@@ -50,7 +50,7 @@ class TasksController < ApplicationController
       @tasks = current_user.tasks.status_search(params[:task][:status]).page(params[:page]).per(PER)
       render "index"
     elsif params[:task][:title].blank? && params[:task][:status].blank?
-      flash[:info] = t("flash.blank")
+      flash[:warning] = t("flash.blank")
       redirect_to tasks_path
     end
   end
@@ -79,7 +79,7 @@ class TasksController < ApplicationController
   def update
     if @task.update(task_params)
       flash[:success] = t("flash.update")
-      redirect_to tasks_path
+      redirect_to task_path(@task.id)
     else
       render "edit"
     end
