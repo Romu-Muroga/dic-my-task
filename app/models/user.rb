@@ -29,6 +29,7 @@ class User < ApplicationRecord
     # (errors.add(:admin, I18n.t("errors.messages.admin")); throw(:abort)) if (admin_users.count == 1 && admin_users.first == self) && !(self.admin?)
     # と書いても同じ処理だけど可読性が低い。
     if (admin_users.count == 1 && admin_users.first == self) && !(self.admin?)
+      # errors_add: addメソッドを使用して、特定の属性に関連するエラーメッセージを手動で追加できます。このメソッドは属性とエラーメッセージを引数として受け取ります。
       errors.add(:admin, I18n.t("errors.messages.admin"))
       throw(:abort)
     else
