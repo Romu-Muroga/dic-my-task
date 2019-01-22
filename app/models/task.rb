@@ -1,7 +1,7 @@
 class Task < ApplicationRecord
   # バリデーション
-  validates :title, presence: true, length: { maximum: 100 }
-  validates :content, presence: true, length: { maximum: 500 }
+  validates :title, presence: true, length: { in: 1..100 }
+  validates :content, presence: true, length: { in: 1..500 }
   validates :end_time_limit, presence: true
   validates :status, presence: true
   validates :priority, presence: true
@@ -17,4 +17,7 @@ class Task < ApplicationRecord
   enum priority: { row: 0, medium: 1, high: 2 }#優先順位
   # アソシエーション
   belongs_to :user
+  has_many :task_labels, inverse_of: :task#関連するテーブルの削除方法はDBにforeign_key: {on_delete: :cascade}を付与したためdependent: :destroyはなし。
+  has_many :labels_attached_to_task, through: :task_labels, source: :label
+  accepts_nested_attributes_for :task_labels#taskを更新、保存すると、同時にtask_labelsテーブルも更新、保存できるようになる。
 end
