@@ -71,6 +71,10 @@
               <% end %>
               <%= link_to t("views.layouts.logout"), session_path(current_user.id), method: :delete, class: "btn btn-default" %>
             </div>
+          <% else %>
+            <div class="col-xs-offset-1 col-xs-1 col-md-offset-1 col-md-1">
+              <%= image_tag("/images/logo.sm.png", size: "125x60") %>
+            </div>
           <% end %>
         </div>
       </nav>
