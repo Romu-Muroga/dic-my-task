@@ -3,12 +3,13 @@ ja:
     models:
       user: "ユーザー"
       task: "タスク"
+      label: "ラベル"
     attributes:
       user:
         id: "登録ID"
         name: "氏名"
         email: "メールアドレス"
-        admin: 管理者権限
+        admin: "管理者権限"
         password: "パスワード"
         password_confirmation: "パスワード（確認用）"
         created_at: "登録日時"
@@ -21,6 +22,8 @@ ja:
         priority: "優先順位"
         created_at: "登録日時"
         updated_at: "更新日時"
+      label:
+        name: "ラベル名"
   errors:
     messages:
-      admin: "は最低１名必要です。解除する必要がある場合は、新たに管理者権限を持つユーザーを登録してください。"  
+      admin: "は最低１名必要です。解除する必要がある場合は、新たに管理者権限を持つユーザーを登録してください。"

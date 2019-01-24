@@ -4,6 +4,7 @@ RSpec.describe Task, type: :model do
 
   before do
     @user1 = FactoryBot.create(:user)
+    @label1 = FactoryBot.create(:label)
   end
 
   it "titleが空ならバリデーションが通らない" do
@@ -32,6 +33,14 @@ RSpec.describe Task, type: :model do
     task1 = Task.create!(title: "当たり", content: "当たり", end_time_limit: DateTime.now, status: "waiting", user: @user1)
     task2 = Task.create!(title: "ハズレ", content: "ハズレ", end_time_limit: DateTime.now, status: "working", user: @user1)
     tasks = Task.status_search("waiting")
+    expect(tasks).to include task1
+  end
+
+  it "labelのみの検索ができるかテスト" do
+    task1 = Task.create!(title: "当たり", content: "当たり", end_time_limit: DateTime.now, status: "waiting", user: @user1)
+    TaskLabel.create!(task_id: task1.id, label_id: @label1.id)
+    label_tasks = Label.label_search(@label1.id)
+    tasks = label_tasks.current_user_narrow_down(@user1.id)
     expect(tasks).to include task1
   end
 

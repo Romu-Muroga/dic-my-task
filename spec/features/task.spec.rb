@@ -10,6 +10,12 @@ RSpec.feature "タスク管理機能", type: :feature do
   task1 = FactoryBot.create(:task, user: user1)
   task2 = FactoryBot.create(:second_task, user: user1)
   task3 = FactoryBot.create(:third_task, user: user1)
+  # ラベル
+  label1 = FactoryBot.create(:label)
+  label2 = FactoryBot.create(:second_label)
+  label3 = FactoryBot.create(:third_label)
+  # 中間テーブル（task1はlabel1を付けている）
+  FactoryBot.create(:task_label, task: task1, label: label1)
 
   # background（Rspec -> before）を使って、「タスク管理機能」というカテゴリの中で使われるデータを共通化
   background do
@@ -38,7 +44,6 @@ RSpec.feature "タスク管理機能", type: :feature do
   end
 
   scenario "タスクが作成日時の降順に並んでいるかのテスト" do
-
     visit tasks_path
     # all メソッドでは条件に合致した要素の配列が返ってくる
     all(".panel")[0].click_link "詳細"
@@ -61,7 +66,6 @@ RSpec.feature "タスク管理機能", type: :feature do
   end
 
   scenario "タスクが終了期限で降順に並んでいるかのテスト" do
-
     visit tasks_path
     click_on "終了期限でソートする"
 
@@ -82,7 +86,6 @@ RSpec.feature "タスク管理機能", type: :feature do
   end
 
   scenario "タスクが優先順位で降順に並んでいるかのテスト" do
-
     visit tasks_path
     click_on "優先順位でソートする"
 
@@ -133,6 +136,11 @@ RSpec.feature "タスク管理機能", type: :feature do
     # 「優先順位」というラベル名のセレクトボックスを選択する処理
     select "中", from: "優先順位"
 
+    # チェックボックスを選択
+    check "task_label_ids_1"
+    check "task_label_ids_2"
+    check "task_label_ids_3"
+
     #「登録する」というvalue（表記文字）のあるボタンをclick_onする（クリックする）する処理
     click_on "登録する"
 
@@ -144,11 +152,53 @@ RSpec.feature "タスク管理機能", type: :feature do
     # clickで登録されたはずの情報が、タスク詳細ページに表示されているかを確認する
     # （タスクが登録されたらタスク詳細画面に遷移されるという前提）
     # タスク詳細ページに、テストコードで作成したはずのデータ（記述）がhave_contentされているか（含まれているか）を確認（期待）するコード
-    expect(page).to have_content "タスク名test"
-    expect(page).to have_content "タスク詳細test"
-    expect(page).to have_content "2018/12/25 15:28"
-    # expect(page).to have_content "2019/01/01 00:00"
-    expect(page).to have_content "未着手"
-    expect(page).to have_content "中"
+    within ".panel" do
+      expect(page).to have_content "タスク名test"
+      expect(page).to have_content "タスク詳細test"
+      expect(page).to have_content "2018/12/25 15:28"
+      # expect(page).to have_content "2019/01/01 00:00"
+      expect(page).to have_content "未着手"
+      expect(page).to have_content "中"
+      expect(page).to have_content "dive_into_code"
+      expect(page).to have_content "仕事"
+      expect(page).to have_content "家事"
+    end
+  end
+
+  scenario "タスク編集のテスト" do
+    visit task_path(task1)
+    click_on "編集"
+
+    within ".form_inner" do
+      fill_in "タスク名", with: "編集test"
+    end
+
+    fill_in "タスク詳細", with: "編集test"
+
+    select "2020", from: "task[end_time_limit(1i)]"
+    select "1月", from: "task[end_time_limit(2i)]"
+    select "1", from: "task[end_time_limit(3i)]"
+    select "00", from: "task[end_time_limit(4i)]"
+    select "00", from: "task[end_time_limit(5i)]"
+
+    within ".form_inner" do
+      select "着手中", from: "状態"
+    end
+
+    select "高", from: "優先順位"
+
+    # task1はdive_into_codeのラベルが付いているのでチェックを外す。
+    uncheck "task_label_ids_1"
+
+    click_on "更新する"
+
+    within ".panel" do
+      expect(page).to have_content "編集test"
+      expect(page).to have_content "編集test"
+      expect(page).to have_content "2020/01/01 00:00"
+      expect(page).to have_content "着手中"
+      expect(page).to have_content "高"
+      expect(page).to_not have_content "dive_into_code"
+    end
   end
 end

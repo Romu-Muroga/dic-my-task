@@ -14,7 +14,10 @@
             <h3 class="panel-title"><%= task.title %></h3>
           </div>
           <div class="panel-body">
-            <p><%= Task.human_attribute_name :content %> : <%= simple_format(task.content) %></p>
+            <% task.labels_attached_to_task.each do |label| %>
+              <span class="label label-info"><%= label.name %></span>
+            <% end %>
+            <p class="content-container"><%= Task.human_attribute_name :content %> : <%= simple_format(task.content) %></p>
             <p><%= Task.human_attribute_name :end_time_limit %> : <%= l(task.end_time_limit, format: :long) %></p>
             <p class="border"><%= Task.human_attribute_name :priority %> : <%= task.priority_i18n %></p>
             <%= link_to t("views.tasks.index.show"), task_path(task.id) %> |
