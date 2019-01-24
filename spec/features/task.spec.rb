@@ -14,21 +14,18 @@ RSpec.feature "タスク管理機能", type: :feature do
   label1 = FactoryBot.create(:label)
   label2 = FactoryBot.create(:second_label)
   label3 = FactoryBot.create(:third_label)
-  # 中間テーブル（task1はlabel1を付けている）
+  # 中間テーブル（task1はlabel1とlabel2を付けている）
   FactoryBot.create(:task_label, task: task1, label: label1)
+  FactoryBot.create(:task_label, task: task1, label: label2)
 
   # background（Rspec -> before）を使って、「タスク管理機能」というカテゴリの中で使われるデータを共通化
   background do
     visit root_path
-
     fill_in "メールアドレス", with: 'test_user_01@dic.com'
     fill_in "パスワード", with: 'password'
-
     within ".form_outer" do
       click_on "ログイン"
     end
-
-    expect(page).to have_content "ログインに成功しました。"
   end
 
   # scenario（itのalias）の中に、確認したい各項目のテストの処理を書きます。
@@ -62,7 +59,7 @@ RSpec.feature "タスク管理機能", type: :feature do
 
   scenario "タスク詳細のテスト" do
     visit task_path(task1)
-    expect(page).to have_content "test_task_01", "testtesttest"
+    expect(page).to have_content "test_task_01", "test"
   end
 
   scenario "タスクが終了期限で降順に並んでいるかのテスト" do
@@ -103,6 +100,23 @@ RSpec.feature "タスク管理機能", type: :feature do
 
     all(".panel")[2].click_link "詳細"
     expect(page).to have_content "低"
+  end
+
+  scenario "ラベルのみで検索ができるかテスト" do
+    visit tasks_path
+    select "dive_into_code", from: "task_label_id"
+    click_on "検索"
+    expect(page).to have_content "test_task_01", "test"
+  end
+
+  scenario "タイトル・状態・ラベル全てを満たした検索ができるかテスト" do
+    visit tasks_path
+    fill_in "task_title", with: "test_task_01"
+    select "未着手", from: "task_status"
+    select "仕事", from: "task_label_id"
+    click_on "検索"
+    expect(page).to have_content "test_task_01", "未着手"
+    expect(page).to have_content "仕事"
   end
 
   scenario "タスク作成のテスト" do

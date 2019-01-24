@@ -1,17 +1,17 @@
 ja:
   flash:
-    create: "登録しました。"
-    update: "編集しました。"
+    create: "登録しました！"
+    update: "編集しました！"
     destroy: "削除しました。"
     user_destroy: "ユーザー「%{user}」を削除しました。"
     blank: "検索欄が空白です。何か入力してください。"
-    login_success: "ログインに成功しました。"
+    login_success: "ログインに成功しました！"
     login_miss: "ログインに失敗しました..."
     login_info: "ログインして下さい。"
-    login_alert: "権限がありません"
+    login_alert: "権限がありません。"
     logout: "ログアウトしました。"
     # sign_up_and_login: "「アカウント登録 + ログイン」しました。"
-    sign_up: "アカウント登録しました。"
+    sign_up: "アカウントを登録しました！"
     # sign_up_info: "ログイン済みのアカウントです。"
     # my_page_info: "%{user}さんのマイページはこちらです。"
     admin_alert: "管理者権限がありません。"
@@ -35,8 +35,8 @@ ja:
       truncate: "..."
     layouts:
       admin_page: "管理画面"
-      users_page: "ユーザー一覧へ"
-      labels_index_page: "ラベル一覧へ"
+      users_page: "ユーザー一覧"
+      labels_index_page: "ラベル一覧"
       logout: "ログアウト"
       login: "ログイン"
       login_user: "さんが現在ログイン中"
@@ -58,7 +58,7 @@ ja:
         page: "管理画面（ユーザー登録）"
         back: "ユーザー一覧へ戻る"
       edit:
-        page: "管理画面（ユーザーの編集）"
+        page: "管理画面（ユーザー編集）"
         back: "ユーザー一覧へ戻る"
     sessions:
       new:

@@ -24,5 +24,5 @@ class Task < ApplicationRecord
   # アソシエーション
   belongs_to :user
   has_many :task_labels#関連するテーブルの削除方法はDBにforeign_key: {on_delete: :cascade}を付与したためdependent: :destroyはなし。
-  has_many :labels_attached_to_task, through: :task_labels, source: :label
+  has_many :labels_attached_to_task, through: :task_labels, source: :label#そのタスクに付けられた全ラベルを取得するとき
 end

@@ -88,7 +88,7 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)#この時点では外部キーのuser_idの値はnil
     @task.user_id = current_user.id#現在ログインしているuserのidを、@taskのuser_idカラムに挿入する。
     if @task.save
-      # @taskがsaveできたタイミングで同時に子テーブルのtask_labelsテーブルにtask_idとlabel_idに値を保存する。
+      # @taskがsaveできたタイミングで同時に中間テーブルのtask_labelsテーブルにtask_idとlabel_idに値を保存する。
       if params[:task][:label_ids].present?
         params[:task][:label_ids].each do |label_id|
           TaskLabel.create(task_id: @task.id, label_id: label_id)
