@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   # バリデーション
-  before_validation { email.downcase! }#バリデーションする前にメールアドレスの値を小文字に変換
+  before_validation { email.downcase! }#downcase!でバリデーションする前にメールアドレスの値を小文字に変換
   validates :name, presence: true, length: { in: 1..100 }
   validates :email, presence: true, length: { in: 1..200 }, format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }, uniqueness: true
   validates :password, presence: true, length: { in: 8..200 }
