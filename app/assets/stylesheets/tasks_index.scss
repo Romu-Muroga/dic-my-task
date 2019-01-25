@@ -52,3 +52,12 @@
   border-bottom: 1px solid #dcdcdc;
   padding: 4px 0 4px 0; /* 内容と線との間隔量 */
 }
+
+// ラベルの幅を編集
+.label {
+  padding: .2em 2.6em .3em;
+}
+// ラベルとタスク詳細の間に隙間を空ける
+.content-container {
+  margin-top: 7px;
+}

@@ -1,17 +1,17 @@
 ja:
   flash:
-    create: "登録しました。"
-    update: "編集しました。"
+    create: "登録しました！"
+    update: "編集しました！"
     destroy: "削除しました。"
     user_destroy: "ユーザー「%{user}」を削除しました。"
     blank: "検索欄が空白です。何か入力してください。"
-    login_success: "ログインに成功しました。"
+    login_success: "ログインに成功しました！"
     login_miss: "ログインに失敗しました..."
     login_info: "ログインして下さい。"
-    login_alert: "権限がありません"
+    login_alert: "権限がありません。"
     logout: "ログアウトしました。"
     # sign_up_and_login: "「アカウント登録 + ログイン」しました。"
-    sign_up: "アカウント登録しました。"
+    sign_up: "アカウントを登録しました！"
     # sign_up_info: "ログイン済みのアカウントです。"
     # my_page_info: "%{user}さんのマイページはこちらです。"
     admin_alert: "管理者権限がありません。"
@@ -34,7 +34,9 @@ ja:
       next: "次 &rsaquo;"
       truncate: "..."
     layouts:
-      admin_page: "管理画面へ"
+      admin_page: "管理画面"
+      users_page: "ユーザー一覧"
+      labels_index_page: "ラベル一覧"
       logout: "ログアウト"
       login: "ログイン"
       login_user: "さんが現在ログイン中"
@@ -53,10 +55,10 @@ ja:
         edit: "編集"
         destroy: "削除"
       new:
-        page: "ユーザー登録"
+        page: "管理画面（ユーザー登録）"
         back: "ユーザー一覧へ戻る"
       edit:
-        page: "ユーザーの編集"
+        page: "管理画面（ユーザー編集）"
         back: "ユーザー一覧へ戻る"
     sessions:
       new:
@@ -72,8 +74,10 @@ ja:
         end_time_limit_sort: "終了期限でソートする"
         priority_sort: "優先順位でソートする"
         search: "検索"
-        title_search: "タスク名で絞り込む"
-        status_search: "ステータスで絞り込む"
+        title_search: "タスク名"
+        title_search_placeholder: "タスク名で絞り込む"
+        status_search: "状態"
+        label_search: "ラベル名"
         confirm: "タスクを削除します。よろしいですか？"
       new:
         page: "新規作成"
@@ -87,3 +91,18 @@ ja:
       edit:
         page: "編集"
         back: "一覧画面へ戻る"
+      form:
+        label: "ラベル選択"
+    labels:
+      index:
+        page: "管理画面（ラベル一覧）"
+        label_new: "ラベル新規登録"
+        confirm: "ラベルを削除します。よろしいですか？"
+        edit: "編集"
+        destroy: "削除"
+      new:
+        page: "管理画面（ラベル新規作成）"
+        back: "ラベル一覧へ戻る"
+      edit:
+        page: "管理画面（ラベル編集）"
+        back: "ラベル一覧へ戻る"

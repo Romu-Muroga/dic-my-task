@@ -13,6 +13,11 @@
   width: 300px;
 }
 
+// チェックボックス位置を変更
+.checkbox input {
+  left: 20px;
+}
+
 // 登録するボタン
 form .re_size {
   width: 100%;
