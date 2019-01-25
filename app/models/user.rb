@@ -24,7 +24,7 @@ class User < ApplicationRecord
   def admin_users_last_update?
     # （管理者権限を持つユーザーが１名かつself（@user）が管理者権限を持つユーザーとIDが一致※1）かつ（self（@user）が管理者権限を持っていなかったら）->true
     # のとき、throw(:abort)でrollbackを起こす。
-    # ※1 ===で完全一致の検証はできない。ActiveRecordで、オブジェクト同士を==で比較した場合、全属性が同値かどうかは検証しない。==はidが同値かどうかを検証。
+    # ※1 ===はインスタンス番号まで一致しているか検証できる。しかし、ActiveRecordでオブジェクト同士を==で比較した場合、全属性が同値かどうかは検証しない。==はidが同値かどうかを検証。
     admin_users = User.where(admin: true)
     # (errors.add(:admin, I18n.t("errors.messages.admin")); throw(:abort)) if (admin_users.count == 1 && admin_users.first == self) && !(self.admin?)
     # と書いても同じ処理だけど可読性が低い。
