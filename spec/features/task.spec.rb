@@ -213,6 +213,7 @@ RSpec.feature "タスク管理機能", type: :feature do
       expect(page).to have_content "着手中"
       expect(page).to have_content "高"
       expect(page).to_not have_content "dive_into_code"
+      expect(page).to have_content "仕事"
     end
   end
 end
