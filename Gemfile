@@ -34,6 +34,9 @@ gem 'enum_help'
 gem 'kaminari', '~> 0.17.0'
 gem 'kaminari-bootstrap', '~> 3.0.1'
 
+# テストデータを生成するときに使うgem
+gem 'faker'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -51,8 +54,6 @@ group :development, :test do
   gem 'launchy'
   # ENVでセキュリティ対策するために必要なgem
   gem 'dotenv-rails'
-  # テストデータを生成するときに使うgem
-  gem 'faker'
 end
 
 group :development do
