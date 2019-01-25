@@ -4,11 +4,14 @@
     content = Faker::Pokemon.name
     end_time_limit = Faker::Date.between(2.days.ago, Date.today)
     status = Faker::Number.between(0, 2)
+    priority = Faker::Number.between(0, 2)
 
     Task.create!(title: title,
                  content: content,
                  end_time_limit: end_time_limit,
-                 status: status
+                 status: status,
+                 priority: priority,
+                 user_id: 1
                  )
   end
 end
