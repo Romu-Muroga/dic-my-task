@@ -31,17 +31,18 @@
   - end_time_limitカラム => datetime型、defalt: 現在時刻
   - priorityカラム => integer型、defalt: 中
   - statusカラム => integer型、defalt: 未着手、index
-  - user_idカラム => references、index
+  - user_idカラム => bigint型、index
 
 ###### labelsテーブル
 - モデル名：Labelモデル
-  - nameカラム => string型（１００文字以下）
-  - user_idカラム => references、index
+  - nameカラム => string型（１００文字以下）、index
+  - user_idカラム => bigint型、index
 
 ###### task_labelsテーブル（中間テーブル）
 - モデル名：TaskLabelモデル
-  - task_idカラム => integer型、index
-  - label_idカラム => integer型、index
+  - task_idカラム => bigint型、index
+  - label_idカラム => bigint型、index
+  - [task_id, label_id] => unique
 
 ### Herokuにデプロイする手順
 1. デプロイする前にアセットプリコンパイルをします。
