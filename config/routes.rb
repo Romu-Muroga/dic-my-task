@@ -6,6 +6,6 @@ Rails.application.routes.draw do
   end
   resources :sessions, only: [:new, :create, :destroy]
   resources :tasks do
-    get "search", on: :collection
+    get :search, on: :collection
   end
 end
