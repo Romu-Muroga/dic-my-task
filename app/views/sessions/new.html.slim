@@ -1,0 +1,14 @@
+.container-fluid
+  .row
+    .col-md-offset-4.col-md-4
+      h3
+        = t("views.sessions.new.page")
+      = form_with(scope: :session, url: sessions_path, local: true, class: "form_outer") do |f|
+        .form_inner
+          .form-group
+            = f.label :email, "#{User.human_attribute_name :email}"
+            = f.email_field :email, placeholder: "#{User.human_attribute_name :email}", class: "form-control"
+          .form-group
+            = f.label :password, "#{User.human_attribute_name :password}"
+            = f.password_field :password, placeholder: "#{User.human_attribute_name :password}", class: "form-control"
+        = f.submit t("views.sessions.new.submit"), class: "cp_btn re_size"

@@ -1,0 +1,85 @@
+.table_outer
+  h3
+    = t("views.users.show.page", user: @user.name)
+  table.table
+    thead
+      tr
+        th[width="100"]
+          = User.human_attribute_name :id
+        th
+          = User.human_attribute_name :name
+        th
+          = User.human_attribute_name :email
+        th
+          = User.human_attribute_name :admin
+        th
+          = User.human_attribute_name :created_at
+        th
+          = User.human_attribute_name :updated_at
+        th
+          = t("views.users.index.task_count")
+        th
+    tbody
+      tr
+        td
+          = @user.id
+        td
+          = @user.name
+        td
+          = @user.email
+        td
+          = @user.admin? ? t("views.users.index.admin_yes") : t("views.users.index.admin_no")
+        td
+          = l(@user.created_at, format: :long)
+        td
+          = l(@user.updated_at, format: :long)
+        td
+          = @user.tasks.count
+        td
+          = link_to t("views.users.show.edit"), edit_admin_user_path(@user.id)
+          |   
+          = link_to t("views.users.show.destroy"), [:admin, @user], method: :delete, data: { confirm: t("views.users.index.confirm", user: @user.name)}
+  table.table.table_second
+    thead
+      tr
+        th[width="100"]
+          = Task.human_attribute_name :status
+        th
+          = Task.human_attribute_name :title
+        th[width="300"]
+          = Task.human_attribute_name :content
+        th
+          = Task.human_attribute_name :end_time_limit
+        th
+          = Task.human_attribute_name :priority
+        th
+          = Task.human_attribute_name :created_at
+        th
+          = Task.human_attribute_name :updated_at
+    tbody
+      - @user.tasks.each do |task|
+        tr
+          - if task.status == "waiting"
+            td
+              span.label.label-danger
+                = task.status_i18n
+          - elsif task.status == "working"
+            td
+              span.label.label-primary
+                = task.status_i18n
+          - elsif task.status == "completed"
+            td
+              span.label.label-default
+                = task.status_i18n
+          td
+            = task.title
+          td
+            = task.content
+          td
+            = l(task.end_time_limit, format: :long)
+          td
+            = task.priority_i18n
+          td
+            = l(task.created_at, format: :long)
+          td
+            = l(task.updated_at, format: :long)

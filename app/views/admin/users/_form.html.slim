@@ -1,0 +1,28 @@
+= form_with(model: [:admin, user], local: true, class: "form_outer") do |f|
+  .form_inner
+    - if user.errors.any?
+      #error_explanation
+        h3
+          = t("errors.template.header", model: user.model_name.human, count: user.errors.count)
+        ul
+          - user.errors.full_messages.each do |msg|
+            li
+              = msg
+    .form-group
+      = f.label :name
+      = f.text_field :name, placeholder: "#{User.human_attribute_name :name}", class: "form-control form-short"
+    .form-group
+      = f.label :email
+      = f.email_field :email, placeholder: "#{User.human_attribute_name :email}", class: "form-control"
+    - # if action_name != "edit" || @user.admin?
+    .form-group
+      = f.label :admin
+      = f.check_box :admin
+    - # end
+    .form-group
+      = f.label :password
+      = f.password_field :password, placeholder: "#{User.human_attribute_name :password}", class: "form-control"
+    .form-group
+      = f.label :password_confirmation
+      = f.password_field :password_confirmation, placeholder: "#{User.human_attribute_name :password_confirmation}", class: "form-control"
+  = f.submit class: "cp_btn re_size"

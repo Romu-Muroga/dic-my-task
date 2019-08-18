@@ -1,0 +1,7 @@
+.container-fluid
+  .row
+    .col-md-offset-4.col-md-4
+      h3
+        = t("views.users.new.page")
+      = render partial: "form", locals: { user: @user }
+      = link_to t("views.users.new.back"), admin_users_path, class: "btn btn-default"

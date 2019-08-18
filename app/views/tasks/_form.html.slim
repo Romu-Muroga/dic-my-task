@@ -1,0 +1,41 @@
+= form_with(model: task, local: true, class: "form_outer") do |f|
+  .form_inner
+    - if task.errors.any?
+      #error_explanation
+        h2
+          = t("errors.template.header", model: task.model_name.human, count: task.errors.count)
+        ul
+          - task.errors.full_messages.each do |msg|
+            li
+              = msg
+    .form-group
+      = f.label :title
+      = f.text_field :title, placeholder: "#{Task.human_attribute_name :title}", class: "form-control form-short"
+    .form-group
+      = f.label :content
+      = f.text_area :content, class: "form-control", rows: "5"
+    .form-group
+      = f.label :end_time_limit
+      = f.datetime_select :end_time_limit, class: "form-control"
+      - #= f.datetime_field("end")
+    .form-group
+      = f.label :status
+      = f.select :status, Task.statuses_i18n.invert, class: "form-control"
+    .form-group
+      = f.label :priority
+      = f.select :priority, Task.priorities_i18n.invert, class: "form-control"
+    .form-group
+      = f.label :label_ids, t("views.tasks.form.label")
+      - Label.all.each do |label|
+        .checkbox
+          - if action_name == "new" || action_name == "create"
+            = f.check_box :label_ids, { multiple: true, checked: label[:checked], disabled: label[:disabled], include_hidden: false }, label[:id]
+            label
+              = label.name
+            br
+          - elsif action_name == "edit" || action_name == "update"
+            = f.check_box :label_ids, { multiple: true, checked: task_label_ids.include?(label.id), disabled: label[:disabled], include_hidden: false }, label[:id]
+            label
+              = label.name
+            br
+  = f.submit class: "cp_btn re_size"

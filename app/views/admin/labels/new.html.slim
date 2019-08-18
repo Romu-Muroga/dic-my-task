@@ -1,0 +1,20 @@
+.container-fluid
+  .row
+    .col-md-offset-4.col-md-4
+      h3
+        = t("views.labels.new.page")
+      = form_with(model: [:admin, @label], local: true, class: "form_outer") do |f|
+        .form_inner
+          - if @label.errors.any?
+            #error_explanation
+              h3
+                = t("errors.template.header", model: @label.model_name.human, count: @label.errors.count)
+              ul
+                - @label.errors.full_messages.each do |msg|
+                  li
+                    = msg
+          .form-group
+            = f.label :name
+            = f.text_field :name, placeholder: "#{Label.human_attribute_name :name}", class: "form-control"
+        = f.submit class: "cp_btn re_size"
+      = link_to t("views.labels.new.back"), admin_labels_path, class: "btn btn-default"
