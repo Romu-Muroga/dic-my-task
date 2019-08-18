@@ -20,7 +20,7 @@
 # データベース
 ### usersテーブル
 ##### モデル名：User
-|カラム名|データ型|limit|null|defalt|
+|カラム名|データ型|limit|null|default|
 |---|---|---|---|---|
 |name|string|100文字|false|
 |email|string|200文字|false|
@@ -29,7 +29,7 @@
 
 ### tasksテーブル
 ##### モデル名：Task
-|カラム名|データ型|limit|null|defalt|
+|カラム名|データ型|limit|null|default|
 |---|---|---|---|---|
 |title|string|100文字|false|なし|
 |content|string|500文字|false|なし|
@@ -40,14 +40,14 @@
 
 ### labelsテーブル
 ##### モデル名：Label
-|カラム名|データ型|limit|null|defalt|
+|カラム名|データ型|limit|null|default|
 |---|---|---|---|---|
 |name|string|100文字|false|なし|
 |user_id|bigint|なし|false|なし|
 
 ### task_labelsテーブル（中間テーブル）
 ##### モデル名：TaskLabel
-|カラム名|データ型|limit|null|defalt|
+|カラム名|データ型|limit|null|default|
 |---|---|---|---|---|
 |task_id|bigint|なし|false|なし|
 |label_id|bigint|なし|false|なし|
