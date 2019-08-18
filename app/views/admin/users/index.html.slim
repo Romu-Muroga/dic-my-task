@@ -1,0 +1,39 @@
+.table_outer
+  h3
+    = t("views.users.index.page")
+    = link_to t("views.users.index.sign_up"), new_admin_user_path, class: "btn btn-default"
+  table.table
+    thead
+      tr
+        th
+          = User.human_attribute_name :name
+        th
+          = User.human_attribute_name :email
+        th
+          = User.human_attribute_name :admin
+        th
+          = User.human_attribute_name :created_at
+        th
+          = User.human_attribute_name :updated_at
+        th
+          = t("views.users.index.task_count")
+        th
+    tbody
+      - @users.each do |user|
+        tr
+          td
+            = link_to user.name, [:admin, user]
+          td
+            = user.email
+          td
+            = user.admin? ? t("views.users.index.admin_yes") : t("views.users.index.admin_no")
+          td
+            = l(user.created_at, format: :long)
+          td
+            = l(user.updated_at, format: :long)
+          td
+            = user.tasks.count
+          td
+            = link_to t("views.users.index.edit"), edit_admin_user_path(user.id)
+            |   
+            = link_to t("views.users.index.destroy"), [:admin, user], method: :delete, data: { confirm: t("views.users.index.confirm", user: user.name) }

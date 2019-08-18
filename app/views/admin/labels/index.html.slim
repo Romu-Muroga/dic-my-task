@@ -1,0 +1,19 @@
+.table_outer_labels
+  h3
+    = t("views.labels.index.page")
+    = link_to t("views.labels.index.label_new"), new_admin_label_path, class: "btn btn-default"
+  table.table
+    thead
+      tr
+        th
+          = Label.human_attribute_name :name
+        th
+    tbody
+      - @labels.each do |label|
+        tr
+          td
+            = label.name
+          td
+            = link_to t("views.labels.index.edit"), edit_admin_label_path(label.id)
+            |   
+            = link_to t("views.labels.index.destroy"), [:admin, label], method: :delete, data: { confirm: t("views.labels.index.confirm") }
