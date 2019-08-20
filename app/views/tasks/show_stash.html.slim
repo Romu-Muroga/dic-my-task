@@ -1,0 +1,41 @@
+.container-fluid
+  .row
+    .col-md-offset-2.col-md-8
+      h3
+        = t("views.tasks.show.page")
+      .panel.panel-default
+        .panel-heading
+          - if @task.status == "waiting"
+            p
+              span.label.label-danger
+                = @task.status_i18n
+          - elsif @task.status == "working"
+            p
+              span.label.label-primary
+                = @task.status_i18n
+          - elsif @task.status == "completed"
+            p
+              span.label.label-default
+                = @task.status_i18n
+          h3.panel-title
+            = @task.title
+        .panel-body
+          - @task.labels_attached_to_task.each do |label|
+            span.label.label-info
+              = label.name
+          p.content-container
+            = Task.human_attribute_name :content
+            |  :
+            = simple_format(@task.content)
+          p
+            = Task.human_attribute_name :end_time_limit
+            |  :
+            = l(@task.end_time_limit, format: :long)
+          p.border
+            = Task.human_attribute_name :priority
+            |  :
+            = @task.priority_i18n
+          = link_to t("views.tasks.index.edit"), edit_task_path(@task.id)
+          |  |
+          = link_to t("views.tasks.index.destroy"), task_path(@task.id), method: :delete, data: { confirm: t("views.tasks.show.confirm") }
+      = link_to t("views.tasks.show.back"), tasks_path, class: "btn btn-default"
