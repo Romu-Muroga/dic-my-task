@@ -150,10 +150,10 @@ class TasksController < ApplicationController
   def login_check
     if logged_in? == false
       flash[:danger] = t("flash.login_info")
-      redirect_to new_session_path
+      redirect_to login_path
     elsif logged_in? == false && (@task.user_id == current_user.id) == false
       flash[:danger] = t("flash.login_alert")
-      redirect_to new_session_path
+      redirect_to login_path
     end
   end
 

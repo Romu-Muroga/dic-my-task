@@ -17,6 +17,6 @@ class SessionsController < ApplicationController
   def destroy
     session.delete(:user_id)
     flash[:success] = t("flash.logout")
-    redirect_to new_session_path
+    redirect_to login_path
   end
 end
