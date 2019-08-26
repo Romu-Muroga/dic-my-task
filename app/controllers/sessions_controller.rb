@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
 
   def create
     user = User.find_by(email: session_params[:email].downcase)#downcaseは値は更新しない。
-    if user && user.authenticate(session_params[:password])
+    if user&.authenticate(session_params[:password])
       session[:user_id] = user.id
       flash[:success] = t("flash.login_success")
       redirect_to root_path
