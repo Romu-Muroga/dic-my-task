@@ -1,8 +1,7 @@
 class ApplicationController < ActionController::Base
-  # 全コントローラでSessionsHelperモジュールを使用するための記述
-  include SessionsHelper
   # basic認証をproduction環境にのみ設定
   before_action :basic if Rails.env == "production"
+  helper_method :current_user, :logged_in?
 
   private
 
@@ -10,5 +9,13 @@ class ApplicationController < ActionController::Base
     authenticate_or_request_with_http_basic do |name, password|
       name == ENV['BASIC_AUTH_NAME'] && password == ENV['BASIC_AUTH_PASSWORD']
     end
+  end
+
+  def current_user
+    @current_user ||= User.find_by(id: session[:user_id]) if session[:user_id]
+  end
+
+  def logged_in?
+    current_user.present?
   end
 end
