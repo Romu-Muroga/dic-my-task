@@ -1,6 +1,4 @@
 class Admin::UsersController < ApplicationController
-  # before_action :login_check, only: [:new]
-  # before_action :current_user_check, only: [:show]
   before_action :current_user_admin?
   before_action :set_user, only: [:edit, :update, :show, :destroy]
 
@@ -53,28 +51,11 @@ class Admin::UsersController < ApplicationController
 
   private
 
-  # # ログインしている状態でサインアップ画面に遷移できないようにする
-  # def login_check
-  #   if logged_in?
-  #     flash[:danger] = t("flash.sign_up_info")
-  #     redirect_to user_path(current_user.id)
-  #   end
-  # end
-  #
-  # # 他人のマイページに遷移できないようにする
-  # def current_user_check
-  #   unless params[:id].to_i == current_user.id
-  #     flash[:danger] = t("flash.my_page_info", user: current_user.name)
-  #     redirect_to user_path(current_user.id)
-  #   end
-  # end
-
-  # 管理者権限を持つユーザーではなかったらルートパスへ移動
   def current_user_admin?
-    unless logged_in? && current_user.admin?
-      flash[:danger] = t("flash.admin_alert")
-      redirect_to root_path
-    end
+    return if current_user.admin?
+
+    flash[:danger] = t("flash.admin_alert")
+    redirect_to root_path
   end
 
   def set_user
