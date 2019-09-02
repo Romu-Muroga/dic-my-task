@@ -34,10 +34,10 @@
         td
           = l(@user.updated_at, format: :long)
         td
-          = @user.tasks.count
+          = @user.tasks.size
         td
           = link_to t("views.users.show.edit"), edit_admin_user_path(@user.id)
-          |   
+          |  
           = link_to t("views.users.show.destroy"), [:admin, @user], method: :delete, data: { confirm: t("views.users.index.confirm", user: @user.name)}
   table.table.table_second
     thead
