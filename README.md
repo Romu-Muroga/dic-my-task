@@ -1,5 +1,6 @@
-### このアプリについて
+# このアプリについて
 タスクを管理することができるアプリです。
+# 機能一覧
 - 自分のタスクを簡単に登録
 - タスクに終了期限を設定
 - タスクに優先順位をつけることができます。
@@ -11,40 +12,47 @@
 - ユーザ登録し、自分が登録したタスクだけを見ることができます。
 - ユーザの管理機能
 
-### 要件
+# バージョン
 - Ruby 2.5.3
 - Rails 5.2.2
 - PostgreSQL 10.5
 
-### データベース
-###### usersテーブル
-- モデル名：Userモデル
-  - nameカラム => string型（１００文字以下）
-  - emailカラム　=> string型（２００文字以下）、index、unique
-  - password_digestカラム => string型（８文字以上２００文字以下）
-  - adminカラム => boolean型、defalt: false
+# データベース
+### usersテーブル
+##### モデル名：User
+|カラム名|データ型|limit|null|default|
+|---|---|---|---|---|
+|name|string|100文字|false|
+|email|string|200文字|false|
+|password_digest|string|200文字|false|
+|admin|boolean|なし|false|false|
 
-###### tasksテーブル
-- モデル名：Taskモデル
-  - titleカラム => string型（１００文字以下）、index
-  - contentカラム => string型（５００文字以下）
-  - end_time_limitカラム => datetime型、defalt: 現在時刻
-  - priorityカラム => integer型、defalt: 中
-  - statusカラム => integer型、defalt: 未着手、index
-  - user_idカラム => bigint型、index
+### tasksテーブル
+##### モデル名：Task
+|カラム名|データ型|limit|null|default|
+|---|---|---|---|---|
+|title|string|100文字|false|なし|
+|content|string|500文字|false|なし|
+|end_time_limit|datetime|なし|false|'now()'|
+|priority|integer|なし|false|1|
+|status|integer|なし|false|0|
+|user_id|bigint|なし|false|なし|
 
-###### labelsテーブル
-- モデル名：Labelモデル
-  - nameカラム => string型（１００文字以下）、index
-  - user_idカラム => bigint型、index
+### labelsテーブル
+##### モデル名：Label
+|カラム名|データ型|limit|null|default|
+|---|---|---|---|---|
+|name|string|100文字|false|なし|
+|user_id|bigint|なし|false|なし|
 
-###### task_labelsテーブル（中間テーブル）
-- モデル名：TaskLabelモデル
-  - task_idカラム => bigint型、index
-  - label_idカラム => bigint型、index
-  - [task_id, label_id] => unique
+### task_labelsテーブル（中間テーブル）
+##### モデル名：TaskLabel
+|カラム名|データ型|limit|null|default|
+|---|---|---|---|---|
+|task_id|bigint|なし|false|なし|
+|label_id|bigint|なし|false|なし|
 
-### Herokuにデプロイする手順
+# Herokuにデプロイする手順
 1. デプロイする前にアセットプリコンパイルをします。
 ```
 $ rails assets:precompile RAILS_ENV=production
@@ -68,9 +76,5 @@ $ git push heroku master
 ```
 $ heroku run rails db:migrate
 ```
-6. アプリ名を確認する方法
-```
-$ heroku config
-```
-7. これで、ブラウザで以下のURLにアクセスすれば起動するはずです。  
-https://アプリ名.herokuapp.com/
+6. ブラウザで以下のURLにアクセスすれば起動します。  
+https://safe-plateau-44552.herokuapp.com/

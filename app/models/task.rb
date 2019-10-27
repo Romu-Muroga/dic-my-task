@@ -1,7 +1,8 @@
 class Task < ApplicationRecord
   # バリデーション
-  validates :title, presence: true, length: { in: 1..100 }
-  validates :content, presence: true, length: { in: 1..500 }
+  validates :title, presence: true, length: { maximum: 100 }
+  validate :validate_title_not_including_comma
+  validates :content, presence: true, length: { maximum: 500 }
   validates :end_time_limit, presence: true
   validates :status, presence: true
   validates :priority, presence: true
@@ -25,4 +26,10 @@ class Task < ApplicationRecord
   belongs_to :user
   has_many :task_labels#関連するテーブルの削除方法はDBにforeign_key: {on_delete: :cascade}を付与したためdependent: :destroyはなし。
   has_many :labels_attached_to_task, through: :task_labels, source: :label#そのタスクに付けられた全ラベルを取得するとき
+
+  private
+
+  def validate_title_not_including_comma
+    errors.add(:title, 'にカンマを含めることはできません') if title&. include?(',')
+  end
 end

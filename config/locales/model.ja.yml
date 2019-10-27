@@ -15,8 +15,9 @@ ja:
         created_at: "登録日時"
         updated_at: "更新日時"
       task:
-        title: "タスク名"
-        content: "タスク詳細"
+        id: "ID"
+        title: "名称"
+        content: "詳しい説明"
         end_time_limit: "終了期限"
         status: "状態"
         priority: "優先順位"

@@ -1,10 +1,11 @@
 class SessionsController < ApplicationController
+  skip_before_action :login_check
   def new
   end
 
   def create
-    user = User.find_by(email: params[:session][:email].downcase)#downcaseは値は更新しない。
-    if user && user.authenticate(params[:session][:password])
+    user = User.find_by(email: session_params[:email].downcase)#downcaseは値は更新しない。
+    if user&.authenticate(session_params[:password])
       session[:user_id] = user.id
       flash[:success] = t("flash.login_success")
       redirect_to root_path
@@ -15,8 +16,15 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    session.delete(:user_id)
+    # session.delete(:user_id)
+    reset_session
     flash[:success] = t("flash.logout")
-    redirect_to new_session_path
+    redirect_to login_path
+  end
+
+  private
+
+  def session_params
+    params.require(:session).permit(:email, :password)
   end
 end

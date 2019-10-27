@@ -42,10 +42,10 @@ class Admin::LabelsController < ApplicationController
 
   # 管理者権限を持つユーザーではなかったらルートパスへ移動
   def current_user_admin?
-    unless logged_in? && current_user.admin?
-      flash[:danger] = t("flash.admin_alert")
-      redirect_to root_path
-    end
+    return if current_user.admin?
+    
+    flash[:danger] = t("flash.admin_alert")
+    redirect_to root_path
   end
 
   def set_params

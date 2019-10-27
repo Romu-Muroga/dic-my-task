@@ -1,6 +1,5 @@
 class TasksController < ApplicationController
   before_action :set_params, only: [:show, :edit, :update, :destroy]
-  before_action :login_check
   PER = 8
 
   def index
@@ -13,33 +12,7 @@ class TasksController < ApplicationController
     end
   end
 
-  # # indexアクション内で検索するとき
-  # def index
-  #   # 「if文中のnilはfalseとして扱われる」if文中で、falseと同等の値として扱われるのはnilだけ。
-  #   # falseとnil以外の値、たとえば、0、[],””などはtrueとして扱われる。
-  #   if params[:etl_sort]#返り値がnil
-  #     @tasks = Task.page(params[:page]).per(PER).end_time_limit_sorted#all省略
-  #   elsif params[:pri_sort]#返り値がnil
-  #     @tasks = Task.page(params[:page]).per(PER).priority_sorted#all省略
-  #   # elsif params[:task][:search]#undefined method `[]' for nil:NilClassとなる([]を呼び出そうとしているが、その元のオブジェクトがnilであると言っている。)
-  #   elsif params[:task] && params[:task][:search]#params[:task]の返り値がnil
-  #     # present?を書かないとフィールドが空欄（""）でも検索しにいってしまいエラーが起こる？
-  #     if params[:task][:title].present? && params[:task][:status].present?
-  #       @tasks = Task.title_status_search(params[:task][:title], params[:task][:status]).page(params[:page]).per(PER)
-  #     elsif params[:task][:title].present?
-  #       @tasks = Task.title_search(params[:task][:title]).page(params[:page]).per(PER)
-  #     elsif params[:task][:status].present?
-  #       @tasks = Task.status_search(params[:task][:status]).page(params[:page]).per(PER)
-  #     elsif params[:task][:title].blank? && params[:task][:status].blank?
-  #       redirect_to tasks_path, notice: t("flash.blank")
-  #     end
-  #   else
-  #     @tasks = Task.page(params[:page]).per(PER).created_at_sorted#all省略
-  #   end
-  # end
-
   def search
-    # present?を書かないとフィールドが空欄（""）でも検索しにいってしまいエラーが起こる？
     if params[:task][:title].present? && params[:task][:status].present? && params[:task][:label_id].present?
       label_tasks = Label.label_search(params[:task][:label_id])
       @tasks = label_tasks.title_status_current_user_search(params[:task][:title],
@@ -145,16 +118,10 @@ class TasksController < ApplicationController
 
   def set_params
     @task = Task.find(params[:id])
-  end
+    return if @task.user_id == current_user.id
 
-  def login_check
-    if logged_in? == false
-      flash[:danger] = t("flash.login_info")
-      redirect_to new_session_path
-    elsif logged_in? == false && (@task.user_id == current_user.id) == false
-      flash[:danger] = t("flash.login_alert")
-      redirect_to new_session_path
-    end
+    flash[:danger] = t("flash.login_alert")
+    redirect_to login_path
   end
 
   def task_params
