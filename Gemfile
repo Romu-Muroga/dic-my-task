@@ -31,7 +31,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'enum_help'
 
 # ページネーション機能(railsが５系なのでバージョン指定)
-gem 'kaminari', '~> 0.17.0'
+gem 'kaminari', '~> 1.2.1'
 gem 'kaminari-bootstrap', '~> 3.0.1'
 
 # テストデータを生成するときに使うgem
