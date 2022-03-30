@@ -8,7 +8,7 @@ gem 'rails', '~> 5.2.2'
 
 # Middleware
 gem 'pg', '>= 0.18', '< 2.0'
-gem 'puma', '~> 3.12'
+gem 'puma', '~> 4.3'
 
 # default
 gem 'sass-rails', '~> 5.0'
